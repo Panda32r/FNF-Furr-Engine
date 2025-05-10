@@ -1,0 +1,10 @@
+{
+    "event":
+        [
+            {
+                "step": 0,
+                "eventName":"noTweenCam",
+                "value1": "true"
+            }
+        ]
+    }

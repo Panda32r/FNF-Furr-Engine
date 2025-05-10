@@ -1,7 +1,6 @@
 package states;
 
 import flixel.FlxState;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.FlxObject;
 import flixel.addons.transition.FlxTransitionableState;
 
@@ -75,9 +74,6 @@ class LogoState extends FlxState
                 movetCam();
                 if (camOther.zoom >= 0.5)
                     camOther.zoom -= 0.015;
-                text1.alpha -= 0.1;
-                text2.alpha -= 0.1;
-                head.alpha -= 0.1;
                 switchState(new TitleState());
             }
 

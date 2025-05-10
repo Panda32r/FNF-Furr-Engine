@@ -1,0 +1,71 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [-16, -360],
+			"anim": "idle",
+			"fps": 24,
+			"name": "YcrIDLE0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [181, -361],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "YcrLEFT0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [108, -453],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "YcrDOWN0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [120, -232],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "YcrUP0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [-120, -430],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "YcrRIGHT0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [15, -320],
+			"anim": "laugh",
+			"fps": 24,
+			"name": "YcrLAUGH0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [287, -37],
+			"anim": "Screamy",
+			"fps": 24,
+			"name": "YcrAHH0",
+			"indices": []
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/sonic_exe/SonicYCR",
+	"position": [-90, -60],
+	"healthicon": "ycr",
+	"flip_x": false,
+	"healthbar_colors": [22, 13, 135],
+	"camera_position": [-370, 170],
+	"sing_duration": 6.1,
+	"scale": 1,
+	"_editor_isPlayer": false
+}

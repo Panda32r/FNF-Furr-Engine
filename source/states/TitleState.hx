@@ -2,16 +2,19 @@ package states;
 
 
 import backend.RandomSongForDemo;
-import charectors.BF;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.sound.FlxSound;
+import charectors.CharectorsOther;
 import flixel.util.FlxColor;
-import states.PlayState;
+import states.ResultState;
+import backend.Song;
+import backend.EventJson;
+import states.LevelSelect;
 
 class TitleState extends MusicBeatState
 {
     public var rSong:RandomSongForDemo = new RandomSongForDemo();
-    public var gf:BF;
+
+    public var gf:CharectorsOther;
+
     public var logo:FlxSprite;
     public var danceGF:Bool = false;
     public var song:FlxSound;
@@ -24,6 +27,7 @@ class TitleState extends MusicBeatState
     public var whileColor:FlxSprite;
 
     public var titleEnter:FlxSprite;
+    var pressEnter:Bool = false;
     override public function create():Void 
     {
         super.create();
@@ -48,15 +52,6 @@ class TitleState extends MusicBeatState
 		whileColor.alpha = 1;
         add(whileColor);
 
-        bg = new FlxSprite();
-        bg.loadGraphic("assets/images/menuBG.png"); // Загружаем изображение
-        bg.setGraphicSize(FlxG.width, FlxG.height); // Растягиваем на весь экран
-        bg.visible = false;
-        bg.updateHitbox();
-        bg.scrollFactor.set(0, 0); // Фон не должен двигаться при движении камеры
-        add(bg);
-        bg.cameras = [camGame];
-
         //Код предназначеный чтоб делать окно прозрачным 
         // var bg_alhpa:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.fromRGB(24 , 24, 24));
         // if (camGame.zoom < 1)
@@ -68,23 +63,24 @@ class TitleState extends MusicBeatState
 
         // song = FlxG.sound.load(AssetPaths.freakyMenu__ogg, 1, false);
 
-        gf = new BF(600, 100, 'gf');
-        gf.setGraphicSize(563,526);
+
+        gf = new CharectorsOther(500, 50, 'gf', 'TitleState');
         gf.updateHitbox();
         add(gf);
         gf.cameras = [camGame];
 
 
         logo = new FlxSprite(-100,-100);
-        var logoTex= FlxAtlasFrames.fromSparrow('assets/images/logoBumpin.png', 'assets/images/logoBumpin.xml');
+        var logoTex= FlxAtlasFrames.fromSparrow('assets/images/TitleState/logoBumpin.png', 'assets/images/TitleState/logoBumpin.xml');
         logo.frames = logoTex;
         logo.animation.addByPrefix('LogoBoop', 'logo bumpin0');
         logo.animation.play('LogoBoop');
         add(logo);
         logo.cameras = [camGame];
+        logo.antialiasing = true;
 
         titleEnter = new FlxSprite(50,FlxG.height - 150);
-        var titleEnterTex= FlxAtlasFrames.fromSparrow('assets/images/titleEnter.png', 'assets/images/titleEnter.xml');
+        var titleEnterTex= FlxAtlasFrames.fromSparrow('assets/images/TitleState/titleEnter.png', 'assets/images/TitleState/titleEnter.xml');
         titleEnter.frames = titleEnterTex;
         titleEnter.animation.addByPrefix('idle', 'ENTER IDLE0');
         titleEnter.animation.addByPrefix('freeze', 'ENTER FREEZE0');
@@ -100,11 +96,23 @@ class TitleState extends MusicBeatState
             // song.play();
         }
 
-        // song.onComplete = SongEnd;
+        if (FlxG.sound.music != null) 
+            Conductor.songPosition = FlxG.sound.music.time;
+
+        FlxG.sound.music.onComplete = SongEnd;
 
         Conductor.changeBPM(102);
 
-        
+        gf.playAnim('danceRight');
+
+        curStep = LevelSelect.isCurStep;
+        curBeat = LevelSelect.iSCurBeat;
+
+        totalSteps = LevelSelect.isTotalSteps;
+        totalBeats = LevelSelect.isTotalBeats;
+
+        lastStep = LevelSelect.islastStep;
+        lastBeat = LevelSelect.islastBeat;
     }
 
     var animEnter:Bool = false;
@@ -114,8 +122,9 @@ class TitleState extends MusicBeatState
 
         if (whileColor.alpha > 0)
             whileColor.alpha -=0.01;
-        if (controls.justPressed('ACCEPT'))
+        if (controls.justPressed('ACCEPT') && !pressEnter)
         {
+            pressEnter = true;
 			whileColor.alpha = 1;
             if (!animEnter)
                 titleEnter.animation.play('pressed');
@@ -123,33 +132,45 @@ class TitleState extends MusicBeatState
                 titleEnter.animation.play('freeze');
             var mySound:FlxSound = FlxG.sound.play("assets/sounds/confirmMenu.ogg", 0.4);
             mySound.onComplete = function() 
-                    MusicBeatState.switchState(new LevelSelect());
-            
+                    MusicBeatState.switchState(new MeinMenu());
+            LevelSelect.isCurStep = curStep;
+            LevelSelect.iSCurBeat = curBeat;
+
+            LevelSelect.isTotalSteps = totalSteps;
+            LevelSelect.isTotalBeats = totalBeats;
+
+            LevelSelect.islastStep = lastStep;
+            LevelSelect.islastBeat = lastBeat;
                 
         }
         if (FlxG.sound.music != null)
         {    // Conductor.songPosition = song.time;
             Conductor.songPosition = FlxG.sound.music.time;
         }
+        if (controls.justPressed('BACK'))
+            MusicBeatState.switchState(new MeinMenu());
     } 
 
     override function beatHit() 
         {
             super.beatHit();
-            if (curBeat % 1 == 0)
                 if (gf.animation.curAnim.finished || gf.animation.name == 'danceLeft' || gf.animation.name == 'danceRight')	
                 {
                     if (!danceGF)
-                    {gf.animation.stop();gf.playAnim('danceLeft'); danceGF = true;logo.animation.play('static');}
+                    {gf.playAnim('danceLeft'); danceGF = true;logo.animation.play('static');}
                     else
-                    {gf.animation.stop();gf.playAnim('danceRight'); danceGF = false;logo.animation.play('static');}
+                    {gf.playAnim('danceRight'); danceGF = false;logo.animation.play('static');}
+                    // trace('Dance');
                 }
         }
 
     function SongEnd() 
 	{
-        PlayState.curSong = rSong.randSong;
-        PlayState.debag = true;
-		MusicBeatState.switchState(new PlayState());
+        FlxG.sound.playMusic(AssetPaths.freakyMenu__ogg, 0);
+        PlayState.SONG = Song.loadFromJson(rSong.randSong,rSong.randSong);
+        PlayState.EVENT = EventJson.loadJson(rSong.randSong);
+        PlayState.songName = rSong.randSong;
+        PlayState.demo = true;
+        MusicBeatState.switchState(new PlayState()); // Переход в игру
 	}
 }

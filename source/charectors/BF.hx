@@ -2,33 +2,9 @@ package charectors;
 
 
 import flixel.animation.FlxAnimation;
-import flixel.graphics.frames.FlxAtlasFrames;
 import haxe.Json;
 import lime.utils.Assets;
-import openfl.display.BitmapData;
-
-typedef FilePersonaga = {
-
-    var animations:Array<Anim>;
-    
-    var no_antialiasing:Bool;
-    var image:String;
-    var position:Array<Int>;
-    var flip_x:Bool;
-    var camera_position:Array<Int>;
-    var scale:Float;
-    var healthbar_colors:Array<Int>;
-    var not_hold_play_animation:Bool;
-}
-
-typedef Anim = {
-	var anim:String;
-	var name:String;
-	var fps:Int;
-	var loop:Bool;
-	var indices:Array<Int>;
-	var offsets:Array<Int>;
-}
+import charectors.AnimationCharectors;
 
 
 class BF extends FlxSprite{
@@ -85,9 +61,9 @@ class BF extends FlxSprite{
         }
 
         var charactersJson = File.getContent(characterPath).trim();
-        var character:FilePersonaga = Json.parse(charactersJson);
+        var character:AnimationCharectors.FilePersonaga = Json.parse(charactersJson);
 
-        not_hold_play_animation = character.not_hold_play_animation ? true : false;
+        not_hold_play_animation = character.not_hold_play_animation;
             if (!changa)
                 changa = true;
             else
@@ -114,7 +90,8 @@ class BF extends FlxSprite{
                 var characterAnim:Anim = character.animations[i];
                 // trace(characterAnim.anim);
                 if (characterAnim.anim == 'singLEFT' || characterAnim.anim == 'singDOWN' || characterAnim.anim == 'singUP' || characterAnim.anim == 'singRIGHT')
-                    characterAnim.indices = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
+                    if (characterAnim.indices.length == 0)
+                        characterAnim.indices = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];
                 if (characterAnim.indices.length > 0)
                     animation.addByIndices(characterAnim.anim, characterAnim.name, characterAnim.indices, "", characterAnim.fps, characterAnim.loop);
                 else
@@ -130,7 +107,8 @@ class BF extends FlxSprite{
             if (hasAnimation('idle'))
                 playAnim('idle');
             else
-                playAnim('danceRight');
+                if (hasAnimation('danceRight'))
+                    playAnim('danceRight');
             
             x_changa = character.position[0];
             y_changa = character.position[1];
@@ -158,18 +136,20 @@ class BF extends FlxSprite{
 
     public function addOffset(name:String, x:Float = 0, y:Float = 0)
     {
-            animOffsets[name] = [x, y];
+        animOffsets[name] = [x, y];
     }
 
     public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
         {
-            
-            animation.play(AnimName, Force, Reversed, Frame);
-    
-            var daOffset = animOffsets.get(animation.curAnim.name);
-            if (animOffsets.exists(animation.curAnim.name))
+            if (hasAnimation(AnimName))
             {
-                offset.set(daOffset[0], daOffset[1]);
+                animation.play(AnimName, Force, Reversed, Frame);
+        
+                var daOffset = animOffsets.get(animation.curAnim.name);
+                if (animOffsets.exists(animation.curAnim.name))
+                {
+                    offset.set(daOffset[0], daOffset[1]);
+                }
             }
         }
 }

@@ -1,0 +1,354 @@
+{
+    "event":
+    
+        [
+            {
+                "step": 78,
+                "eventName":"defZoom",
+                "value1": "1",
+                "value2": "0"
+            },
+            {
+                "step": 79,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 81,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 83,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 85,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 87,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 89,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 91,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 279,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 281,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 283,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 285,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 472,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "Screamy"
+            },
+            {
+                "step": 478,
+                "eventName":"defZoom",
+                "value1": "1.1",
+                "value2": "0"
+            },
+            {
+                "step": 479,
+                "eventName":"charactersChange",
+                "value1": "dad",
+                "value2": "PIXEL"
+            },
+            {
+                "step": 480,
+                "eventName":"charactersChange",
+                "value1": "bf",
+                "value2": "pico-pixel"
+            },
+            {
+                "step": 582,
+                "eventName":"charactersChange",
+                "value1": "dad",
+                "value2": "ycr_sonicfake_pixel"
+            },
+            {
+                "step": 613,
+                "eventName":"charactersChange",
+                "value1": "dad",
+                "value2": "PIXEL"
+            },
+            {
+                "step": 719,
+                "eventName":"charactersChange",
+                "value1": "dad",
+                "value2": "ycr_sonicfake_pixel"
+            },
+            {
+                "step": 733,
+                "eventName":"defZoom",
+                "value1": "0.9",
+                "value2": "0"
+            },
+            {
+                "step": 734,
+                "eventName":"charactersChange",
+                "value1": "dad",
+                "value2": "YCRSonicEXE"
+            },
+            {
+                "step": 735,
+                "eventName":"charactersChange",
+                "value1": "bf",
+                "value2": "pico-player"
+            },
+            {
+                "step": 1120,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 1122,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 1124,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 1126,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 1128,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 1130,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 1132,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 1134,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 1136,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "laugh"
+            },
+            {
+                "step": 1159,
+                "eventName":"defZoom",
+                "value1": "1",
+                "value2": "0"
+            },
+            {
+                "step": 1167,
+                "eventName":"defZoom",
+                "value1": "0.8",
+                "value2": "0"
+            },
+            {
+                "step": 1191,
+                "eventName":"defZoom",
+                "value1": "1",
+                "value2": "0"
+            },
+            {
+                "step": 1199,
+                "eventName":"defZoom",
+                "value1": "0.7",
+                "value2": "0"
+            },
+            {
+                "step": 1223,
+                "eventName":"defZoom",
+                "value1": "0.9",
+                "value2": "0"
+            },
+            {
+                "step": 1231,
+                "eventName":"defZoom",
+                "value1": "0.7",
+                "value2": "0"
+            },
+            {
+                "step": 1251,
+                "eventName":"defZoom",
+                "value1": "0.8",
+                "value2": "0"
+            },
+            {
+                "step": 1255,
+                "eventName":"defZoom",
+                "value1": "0.9",
+                "value2": "0"
+            },
+            {
+                "step": 1260,
+                "eventName":"defZoom",
+                "value1": "1",
+                "value2": "0"
+            },
+            {
+                "step": 1263,
+                "eventName":"defZoom",
+                "value1": "0.7",
+                "value2": "0"
+            },
+            {
+                "step": 1283,
+                "eventName":"defZoom",
+                "value1": "0.8",
+                "value2": "0"
+            },
+            {
+                "step": 1287,
+                "eventName":"defZoom",
+                "value1": "0.9",
+                "value2": "0"
+            },
+            {
+                "step": 1291,
+                "eventName":"defZoom",
+                "value1": "1",
+                "value2": "0"
+            },
+            {
+                "step": 1295,
+                "eventName":"defZoom",
+                "value1": "0.7",
+                "value2": "0"
+            },
+            {
+                "step": 1323,
+                "eventName":"defZoom",
+                "value1": "0.9",
+                "value2": "0"
+            },
+            {
+                "step": 1327,
+                "eventName":"defZoom",
+                "value1": "0.7",
+                "value2": "0"
+            },
+            {
+                "step": 1351,
+                "eventName":"defZoom",
+                "value1": "0.8",
+                "value2": "0"
+            },
+            {
+                "step": 1353,
+                "eventName":"defZoom",
+                "value1": "0.9",
+                "value2": "0"
+            },
+            {
+                "step": 1355,
+                "eventName":"defZoom",
+                "value1": "1",
+                "value2": "0"
+            },
+            {
+                "step": 1359,
+                "eventName":"defZoom",
+                "value1": "0.7",
+                "value2": "0"
+            },
+            {
+                "step": 1369,
+                "eventName":"defZoom",
+                "value1": "0.8",
+                "value2": "0"
+            },
+            {
+                "step": 1370,
+                "eventName":"defZoom",
+                "value1": "0.9",
+                "value2": "0"
+            },
+            {
+                "step": 1371,
+                "eventName":"defZoom",
+                "value1": "1",
+                "value2": "0"
+            },
+            {
+                "step": 1391,
+                "eventName":"defZoom",
+                "value1": "0",
+                "value2": "0"
+            },
+            {
+                "step": 1399,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "Screamy"
+            },
+            {
+                "step": 1407,
+                "eventName":"defZoom",
+                "value1": "0.8",
+                "value2": "0"
+            },
+            {
+                "step": 1408,
+                "eventName":"charactersChange",
+                "value1": "dad",
+                "value2": "SonicYCRmad"
+            }
+        ]
+    }

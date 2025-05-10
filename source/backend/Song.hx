@@ -41,7 +41,7 @@ class Song
 	public var player3:String = 'gf';
 	public var stage:String = 'stage';
 
-	public var format:String = 'Prototype_0.1';
+	public var format:String = 'FurrEngine_0.1';
 
 	public function new(song, notes, bpm, sections)
 	{

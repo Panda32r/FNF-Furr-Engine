@@ -1,0 +1,146 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "Yuri Idle0"
+		},
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle-alt",
+			"indices": [],
+			"name": "Yuri Idle-alt0"
+		},
+		{
+			"offsets": [
+				-8,
+				-21
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Yuri Sing Note Down"
+		},
+		{
+			"offsets": [
+				-22,
+				-22
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Yuri Sing Note Left"
+		},
+		{
+			"offsets": [
+				23,
+				23
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "Yuri Sing Note Up"
+		},
+		{
+			"offsets": [
+				16,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Yuri Sing Note Right"
+		},
+		{
+			"offsets": [
+				11,
+				25
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "nefes",
+			"indices": [],
+			"name": "Yuri Breath0"
+		},
+		{
+			"offsets": [
+				-8,
+				-21
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN-alt",
+			"indices": [],
+			"name": "Yuri Sing Note Down"
+		},
+		{
+			"offsets": [
+				-22,
+				-22
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT-alt",
+			"indices": [],
+			"name": "Yuri Sing Note Left"
+		},
+		{
+			"offsets": [
+				23,
+				23
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP-alt",
+			"indices": [],
+			"name": "Yuri Sing Note Up"
+		},
+		{
+			"offsets": [
+				16,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT-alt",
+			"indices": [],
+			"name": "Yuri Sing Note Right"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/Doki_Yuri_Assets",
+	"position": [
+		0,
+		0
+	],
+	"healthicon": "yuri",
+	"flip_x": false,
+	"healthbar_colors": [
+		156,
+		115,
+		206
+	],
+	"camera_position": [
+		0,
+		0
+	],
+	"sing_duration": 4,
+	"scale": 1,
+	"_editor_isPlayer": false
+}

@@ -1,0 +1,17 @@
+{
+    "event":
+        [
+            {
+                "step": 380,
+                "eventName":"PlayAnimate",
+                "value1": "dad",
+                "value2": "reveal"
+            },
+            {
+                "step": 386,
+                "eventName":"charactersChange",
+                "value1": "dad",
+                "value2": "sonicexe"
+            }
+        ]
+    }

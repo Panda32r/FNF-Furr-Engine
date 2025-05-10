@@ -1,7 +1,8 @@
 package objects;
 
-import flixel.graphics.frames.FlxAtlasFrames;
 // import openfl.filters.BlurFilter;
+
+import flixel.math.FlxRect;
 
 class Note extends FlxSprite
 {
@@ -19,6 +20,8 @@ class Note extends FlxSprite
 	public var canBeHit:Bool = false;
 	public var tooLate:Bool = false;
 	public var wasGoodHit:Bool = false;
+    public var missNote: Bool = false;
+    public var badHit:Bool = false;
 	public var prevNote:Note;
     public var nextNote:Note;
 
@@ -30,11 +33,7 @@ class Note extends FlxSprite
     public var offsetX:Float = 0;
 	public var offsetY:Float = 0;
 
-	public static var swagWidth:Float = 160 * 0.7;
-	public static var PURP_NOTE:Int = 0;
-	public static var GREEN_NOTE:Int = 2;
-	public static var BLUE_NOTE:Int = 1;
-	public static var RED_NOTE:Int = 3;
+	public static var swagWidth:Float = 115;
 
     public var lowPriority:Bool = false;
     public var lateHitMult:Float = 1;
@@ -68,6 +67,14 @@ class Note extends FlxSprite
         if(!reloadNotes)
             x += 50;
 
+        if (noteType == 'Phantom Note')
+        {
+            ignoreNote = true;
+            alpha = 0.3;
+
+            textyre = 'HURTNOTE_assets';
+        }
+
         imgpng = 'assets/images/' + textyre + '.png';
         imgxml = 'assets/images/' + textyre + '.xml';
         tex = FlxAtlasFrames.fromSparrow(imgpng,imgxml);
@@ -79,10 +86,10 @@ class Note extends FlxSprite
 		animation.addByPrefix('blueScroll', 'blue0');
 		animation.addByPrefix('purpleScroll', 'purple0');
 
-		animation.addByPrefix('purpleholdend', 'pruple hold end');
-		animation.addByPrefix('greenholdend', 'green hold end');
-		animation.addByPrefix('redholdend', 'red hold end');
-		animation.addByPrefix('blueholdend', 'blue hold end');
+		animation.addByPrefix('purpleholdend', 'pruple hold end0');
+		animation.addByPrefix('greenholdend', 'green hold end0');
+		animation.addByPrefix('redholdend', 'red hold end0');
+		animation.addByPrefix('blueholdend', 'blue hold end0');
 
 		animation.addByPrefix('purplehold', 'purple hold piece');
 		animation.addByPrefix('greenhold', 'green hold piece');
@@ -109,7 +116,7 @@ class Note extends FlxSprite
             if(!reloadNotes)
             {
                 noteScore * 0.2;
-                alpha = 0.6;
+                // alpha = 0.6;
             }
             var arhold:Array<String> = ['purplehold', 'bluehold', 'greenhold', 'redhold'];
             updateHitbox();
@@ -118,32 +125,35 @@ class Note extends FlxSprite
             if (prevNote.isSustainNote)
             {
                 prevNote.animation.play(arhold[prevNote.noteData]);
-
-                
+                prevNote.updateHitbox();
+                earlyHitMult = 1;
                 if (!reloadNotes)
                 {
                     prevNote.scale.y *= Conductor.StepBit / 100 * 1.5;
                     prevNote.scale.y *=  PlayState.SONG.speed;
                     // prevNote.scale.y *= Conductor.StepBit / 100 * 1.05;
                 }
-
-                prevNote.updateHitbox();
-                earlyHitMult = 0;
+                prevNote.noteType = noteType;
             }
-
-
+            earlyHitMult = 0;
+           
+            
+            flipY = !ClientSetings.data.downScroll ? false : true ;
             animation.play(arhold[noteData] + 'end');
             updateHitbox();
         }
         reloadNotes = true;
-
-        if (noteType == 'Phantom Note')
-        {
-            ignoreNote = true;
-            alpha = 0.3;
-        }
+        // Забавный эфект измены стрелак
+        // colorTransform.redOffset = 255;
+        // colorTransform.greenOffset = 255;
+        // colorTransform.blueOffset = 255;
+        // colorTransform.redMultiplier = -1;
+        // colorTransform.greenMultiplier = -1;
+        // colorTransform.blueMultiplier = -1;
+        
         
     }
+
 
     override function update(elapsed:Float)
         {
@@ -173,6 +183,7 @@ class Note extends FlxSprite
                 {
                     if (alpha > 0.2)
                         alpha = 0.2;
+                    alpha = 0.2;
                 }
         }
 }

@@ -25,7 +25,7 @@ class EventJson {
         }
         else 
         {
-            return { event: []};
+            return {event: []};
         }
     }
 }

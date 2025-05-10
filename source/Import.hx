@@ -1,4 +1,4 @@
-import FlxTransWindow;
+// import FlxTransWindow;
 
 import backend.ClientSetings;
 import backend.Conductor;
@@ -17,11 +17,17 @@ import flixel.group.FlxGroup;
 import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxSpriteUtil;
+import flixel.sound.FlxSound;
+import openfl.display.BitmapData;
+import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.math.FlxMath;
 // import flixel.system.FlxAssets.FlxShader;
 
 import states.PlayState;
 
 import sys.*;
 import sys.io.*;
+
+import hscript.*;
 
 using StringTools;

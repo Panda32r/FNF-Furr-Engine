@@ -11,6 +11,11 @@ import flixel.input.keyboard.FlxKey;
 	public var goodHit:Int = 90;
 	public var badHit:Int = 135;	
 	public var skipLogoEngine:Bool = false;		
+	public var botPlay:Bool = false;
+	public var healthDown:Bool = false;
+	public var FPSmax:Int = 60;
+	public var antialiasing:Bool = true;
+	public var unlimitFPS: Bool = false;
 }
 
 class ClientSetings
@@ -34,13 +39,26 @@ class ClientSetings
 		'ui_up'			=> [W, UP],
 		'ui_left'		=> [A, LEFT],
 		'ui_down'		=> [S, DOWN],
-		'ui_right'		=> [D, RIGHT]
+		'ui_right'		=> [D, RIGHT],
+
+		'EXIT_DEMO'		=> [ENTER, ESCAPE, BACKSPACE, SPACE, CONTROL]
 	];
 
 	public static function loadPrefs() {
 		for (key in Reflect.fields(data))
 			if (Reflect.hasField(FlxG.save.data, key))
 				Reflect.setField(data, key, Reflect.field(FlxG.save.data, key));
+
+		if(data.FPSmax > FlxG.drawFramerate)
+		{
+			FlxG.updateFramerate = data.FPSmax;
+			FlxG.drawFramerate = data.FPSmax;
+		}
+		else
+		{
+			FlxG.drawFramerate = data.FPSmax;
+			FlxG.updateFramerate = data.FPSmax;
+		}
 	}
 	public static function saveSettings() {
 		for (key in Reflect.fields(data))

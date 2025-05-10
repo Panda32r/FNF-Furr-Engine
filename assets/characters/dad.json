@@ -138,5 +138,6 @@
 		0
 	],
 	"sing_duration": 6.1,
-	"scale": 1
+	"scale": 1,
+	"not_hold_play_animation": true
 }

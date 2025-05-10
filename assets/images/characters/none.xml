@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="none.png">
+	<!-- Created with Adobe Animate version 21.0.0.35450 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="none0000" x="18" y="18" width="671" height="707" frameX="-52" frameY="0" frameWidth="776" frameHeight="764"/>
+</TextureAtlas>

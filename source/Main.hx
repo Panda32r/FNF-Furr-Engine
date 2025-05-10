@@ -1,4 +1,5 @@
 package;
+import lime.app.Application;
 import states.LogoState;
 #if !neko
 #if windows
@@ -9,6 +10,9 @@ import flixel.FlxGame;
 import openfl.display.Sprite;
 import states.PlayState;
 import states.TitleState;
+
+import openfl.Lib;
+import flash.events.UncaughtErrorEvent;
 
 class Main extends Sprite
 {	
@@ -22,7 +26,15 @@ class Main extends Sprite
 		height: 720, // WINDOW height
 		zoom: -1.0, // game state bounds
 		// initialState: TitleState, // initial game state
-		initialState: LogoState, // initial game state
+
+		#if !neko
+		initialState:LogoState, // initial game state
+		#end
+
+		#if neko
+		initialState:PlayState, // initial game state
+		#end
+		
 		framerate: 60, // default framerate
 		skipSplash: true, // if the default flixel splash screen should be skipped
 		startFullscreen: false // if the game should start at fullscreen mode
@@ -41,7 +53,30 @@ class Main extends Sprite
 		#end
 		Controls.instance = new Controls();
 		stage.color = null;
+
+		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtError);
+
 	}
 
+	private function onUncaughtError(e:UncaughtErrorEvent):Void {
+        e.preventDefault(); // Предотвращаем стандартное поведение (например, краш)
+        
+		var errorMsg = "CRASH: " + Std.string(e.error);
+		
+
+        var errorMsg:String = "Произошла критическая ошибка:\n";
+        
+        if (e.error != null) {
+            errorMsg += Std.string(e.error) + "\n\nStack Trace:\n" + haxe.CallStack.toString(haxe.CallStack.exceptionStack());
+        } else {
+            errorMsg += "Неизвестная ошибка.";
+        }
+
+        sys.io.File.saveContent("crash_log.txt", errorMsg); // Запись в файл
+
+        // Выводим окно с ошибкой
+        Application.current.window.alert(errorMsg, "Error!");
+		Sys.exit(1);
+    }
 }
 

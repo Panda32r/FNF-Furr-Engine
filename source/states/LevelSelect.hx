@@ -1,8 +1,11 @@
 package states;
 
 // import js.html.svg.PreserveAspectRatio;
-import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
+import backend.Song;
+import backend.EventJson;
+
+import charectors.CharectorsOther;
 
 class LevelSelect extends MusicBeatState
 {
@@ -12,7 +15,10 @@ class LevelSelect extends MusicBeatState
     var select:Int = 0;
     var lerpSelected:Float = 0;
     var lerpSelectedOptions:Float = 0;
+
     var bg:FlxSprite;
+    var bfDJ:CharectorsOther;
+
     var debugTxt:FlxText;
 
     var camGame:FlxCamera;
@@ -25,8 +31,22 @@ class LevelSelect extends MusicBeatState
 
     var menuItemsOptions:Array<FlxText> = [];
     var selectOptions:Int = 0;
+
+    public static var isCurStep:Int = 0;
+    public static var iSCurBeat:Int = 0;
+
+    public static var isTotalSteps:Int = 0;
+    public static var isTotalBeats:Int = 0;
+
+    public static var islastStep:Float = 0;
+    public static var islastBeat:Float = 0;
+
     override public function create():Void
     {	
+        super.create();
+
+        Conductor.changeBPM(102);
+
         camGame = new FlxCamera();
 		camGame.bgColor = FlxColor.BLACK;
 		FlxG.cameras.reset(camGame);
@@ -47,10 +67,10 @@ class LevelSelect extends MusicBeatState
         camHUD.x = 0;
         camHUD.y = 0;
         FlxG.cameras.add(camHUD);
-
         
         lerpSelected = select;
         lerpSelectedOptions = selectOptions;
+
         bg = new FlxSprite();
         bg.loadGraphic("assets/images/menuBG.png"); // Загружаем изображение
         bg.setGraphicSize(FlxG.width, FlxG.height); // Растягиваем на весь экран
@@ -59,6 +79,21 @@ class LevelSelect extends MusicBeatState
         add(bg);
         bg.cameras = [camGame];
         // bg.cameras = [camGame];
+
+        blackBG = new FlxSprite(0,0);
+		blackBG.makeGraphic (1280,850,FlxColor.fromString('#FFD863'));
+        blackBG.angle = 100;
+        blackBG.x -= 300;
+        blackBG.alpha = 1;
+		blackBG.cameras = [camGame];
+		blackBG.scrollFactor.set();
+        add(blackBG);
+
+        bfDJ = new CharectorsOther(800, -50, 'bf', 'FreePlay');
+        bfDJ.updateHitbox();
+        add(bfDJ);
+        bfDJ.cameras = [camGame];
+
 
         debugTxt = new FlxText(FlxG.width/2 + 200, 70, 100, '');
 		debugTxt.setFormat('assets/fonts/vcr.ttf', 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -103,13 +138,53 @@ class LevelSelect extends MusicBeatState
 		blackBG.scrollFactor.set();
 		blackBG.screenCenter(X);
         add(blackBG);
+
         createMenuOptions();
         updateTextsOptions();
+        updateSelection();
+
+        if (FlxG.sound.music == null)
+        {
+            FlxG.sound.playMusic(AssetPaths.freakyMenu__ogg, 1);
+            // song.play();
+        }
+
+        bfDJ.playAnim('intro');
+        if (FlxG.sound.music != null) 
+            Conductor.songPosition = FlxG.sound.music.time;
+
+        FlxG.sound.music.onComplete = SongEnd;
+
+        curStep = isCurStep;
+        curBeat = iSCurBeat;
+
+        totalSteps = isTotalSteps;
+        totalBeats = isTotalBeats;
+
+        lastStep = islastStep;
+        lastBeat = islastBeat;
+
     }
 
-    override public function update(elapsed:Float)
+    function SongEnd() 
+	{
+        curStep = 0;
+        curBeat = 0;
+
+        totalSteps = 0;
+        totalBeats = 0;
+
+        lastStep = 0;
+        lastBeat = 0;
+	}
+
+    override public function update(elapsed:Float) 
     {
-       
+            super.update(elapsed);
+
+        if (FlxG.sound.music != null)
+            Conductor.songPosition = FlxG.sound.music.time;
+
         if (!optionsOpen)
         {
 
@@ -138,10 +213,23 @@ class LevelSelect extends MusicBeatState
             {
                 FlxG.sound.playMusic(AssetPaths.freakyMenu__ogg, 0);
                 if(arraySong[select] != 'random song')
-                    PlayState.curSong = arraySong[select];
+                    // PlayState.curSong = arraySong[select];
+                    {
+                        PlayState.SONG = Song.loadFromJson(arraySong[select],arraySong[select]);
+                        PlayState.EVENT = EventJson.loadJson(arraySong[select]);
+                        PlayState.songName = arraySong[select];
+                    }
                 else
-                    PlayState.curSong = rSong.randSong;
-                MusicBeatState.switchState(new PlayState()); // Переход в игру
+                    // PlayState.curSong = rSong.randSong;
+                    {
+                        PlayState.SONG = Song.loadFromJson(rSong.randSong,rSong.randSong);
+                        PlayState.EVENT = EventJson.loadJson(rSong.randSong);
+                        PlayState.songName = rSong.randSong;
+                    }
+                    var mySound:FlxSound = FlxG.sound.play("assets/sounds/confirmMenu.ogg", 0.4);
+                        bfDJ.playAnim('hey');
+                        mySound.onComplete = function() 
+                            MusicBeatState.switchState(new PlayState()); // Переход в игру
             }
             updateTexts(elapsed);
             if (controls.justPressed('RESET'))
@@ -153,7 +241,17 @@ class LevelSelect extends MusicBeatState
                 debugTxt.text = PlayState.demo ? 'Demo On' : '';
             }
             if (controls.justPressed('BACK'))
-                MusicBeatState.switchState(new TitleState());
+                {
+                    MusicBeatState.switchState(new TitleState());
+                    isCurStep = curStep;
+                    iSCurBeat = curBeat;
+
+                    isTotalSteps = totalSteps;
+                    isTotalBeats = totalBeats;
+
+                    islastStep = lastStep;
+                    islastBeat = lastBeat;
+                }
             // updateSelection();
         }
         else
@@ -204,11 +302,17 @@ class LevelSelect extends MusicBeatState
         if (controls.justPressed('OPTIONS'))
         {
             // trace('Настройки Открыты');
-            optionsOpen = !optionsOpen ? true : false;
+            optionsOpen = !optionsOpen ;
             updateSelection();
 
         }
+        if (FlxG.sound.volume < 1 && !StopAddvolume)
+            FlxG.sound.volume += 0.1;
+        if (FlxG.sound.volume >= 1)
+            StopAddvolume = true;
     }
+    var StopAddvolume:Bool = false;
+
     
     function createMenu()
     {
@@ -235,10 +339,11 @@ class LevelSelect extends MusicBeatState
     function createMenuItem(name:String, x:Float, y:Float, its:Int, options:Bool = false):FlxText
 	{
 		var item:FlxText = new FlxText(x, y);
-        item.setFormat('assets/fonts/vcr.ttf', 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        item.setFormat('assets/fonts/Menu_Font.ttf', 60, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         item.scrollFactor.set();
-        item.borderSize = 1.25;
-        item.text = name ;
+        item.borderSize = 2.25;
+        item.text = name;
+        item.antialiasing = ClientSetings.data.antialiasing;
 		item.scrollFactor.set();
         if (!options)
 		    menuItems.push(item);
@@ -259,7 +364,6 @@ class LevelSelect extends MusicBeatState
         else
             for (i in 0...menuItemsOptions.length) 
             {
-                var name:String = arraySong[i];
                 menuItemsOptions[i].alpha = (i == selectOptions) ? 1 : 0.6;
                 if (menuItemsOptionsString[i] == 'ghostTap')
                     menuItemsOptions[i].text = 'Ghost Tap  => ' + ClientSetings.data.ghostTap;
@@ -269,8 +373,14 @@ class LevelSelect extends MusicBeatState
                     menuItemsOptions[i].text = 'Middle Scroll  => ' + ClientSetings.data.middleScroll;
                 if (menuItemsOptionsString[i] == 'opponentStrums')
                     menuItemsOptions[i].text = 'Opponent Strums  => ' + ClientSetings.data.opponentStrums;
+                if (menuItemsOptionsString[i] == 'botPlay')
+                    menuItemsOptions[i].text = 'BotPlay  => ' + ClientSetings.data.botPlay;
+                if (menuItemsOptionsString[i] == 'healthDown')
+                    menuItemsOptions[i].text = 'Health Down  => ' + ClientSetings.data.healthDown;
                 if (menuItemsOptionsString[i] == 'skipLogoEngine')
-                    menuItemsOptions[i].text = 'skipLogoEngine  => ' + ClientSetings.data.skipLogoEngine;
+                    menuItemsOptions[i].text = 'Skip Logo Engine  => ' + ClientSetings.data.skipLogoEngine;
+                if (menuItemsOptionsString[i] == 'FPSmax')
+                    menuItemsOptions[i].text = 'FPS max  => ' + ClientSetings.data.FPSmax ;
                 if (menuItemsOptionsString[i] == 'sickHit')
                     menuItemsOptions[i].text = 'Sick!!  => ' + ClientSetings.data.sickHit +'ms';
                 if (menuItemsOptionsString[i] == 'goodHit')
@@ -279,7 +389,7 @@ class LevelSelect extends MusicBeatState
                     menuItemsOptions[i].text = 'bad...  => ' + ClientSetings.data.badHit +'ms';
             }
     }
-    var menuItemsOptionsString:Array<String> = ['downScroll', 'middleScroll', 'opponentStrums','ghostTap', 'skipLogoEngine', 'sickHit', 'goodHit', 'badHit',];
+    var menuItemsOptionsString:Array<String> = ['downScroll', 'middleScroll', 'opponentStrums','ghostTap', 'skipLogoEngine', 'botPlay', 'healthDown', 'FPSmax', 'sickHit', 'goodHit', 'badHit',];
     var NewSeting:Bool;
     function updateOptins(keyLR:Int = 0, KeyAccept:Bool = false) {
         for (i in 0...menuItemsOptions.length) 
@@ -290,32 +400,46 @@ class LevelSelect extends MusicBeatState
                 {
                     if(KeyAccept)
                         NewSeting = !(ClientSetings.data.ghostTap);
-                    ClientSetings.data.ghostTap = NewSeting ? true : false;
+                    ClientSetings.data.ghostTap = NewSeting ;
                 }
                 if (menuItemsOptionsString[i] == 'downScroll')
                 {
                     if(KeyAccept)
                         NewSeting = !(ClientSetings.data.downScroll);
-                    ClientSetings.data.downScroll = NewSeting ? true : false;
+                    ClientSetings.data.downScroll = NewSeting ;
                 }
                 if (menuItemsOptionsString[i] == 'middleScroll')
                 {
                     if(KeyAccept)
                         NewSeting = !(ClientSetings.data.middleScroll);
-                    ClientSetings.data.middleScroll = NewSeting ? true : false;
+                    ClientSetings.data.middleScroll = NewSeting ;
                 }
                 if (menuItemsOptionsString[i] == 'opponentStrums')
                 {
                     if(KeyAccept)
                         NewSeting = !(ClientSetings.data.opponentStrums);
-                    ClientSetings.data.opponentStrums = NewSeting ? true : false;
+                    ClientSetings.data.opponentStrums = NewSeting ;
                 }
                 if (menuItemsOptionsString[i] == 'skipLogoEngine')
-                    {
-                        if(KeyAccept)
-                            NewSeting = !(ClientSetings.data.skipLogoEngine);
-                        ClientSetings.data.skipLogoEngine = NewSeting ? true : false;
-                    }
+                {
+                    if(KeyAccept)
+                        NewSeting = !(ClientSetings.data.skipLogoEngine);
+                    ClientSetings.data.skipLogoEngine = NewSeting ;
+                }
+                if (menuItemsOptionsString[i] == 'botPlay')
+                {
+                    if(KeyAccept)
+                        NewSeting = !(ClientSetings.data.botPlay);
+                    ClientSetings.data.botPlay = NewSeting ;
+                }
+                if (menuItemsOptionsString[i] == 'healthDown')
+                {
+                    if(KeyAccept)
+                        NewSeting = !(ClientSetings.data.healthDown);
+                    ClientSetings.data.healthDown = NewSeting ;
+                }
+                if (menuItemsOptionsString[i] == 'FPSmax')
+                    ClientSetings.data.FPSmax += keyLR;
                 if (menuItemsOptionsString[i] == 'sickHit')
                     ClientSetings.data.sickHit += keyLR;
                 if (menuItemsOptionsString[i] == 'goodHit')
@@ -330,6 +454,7 @@ class LevelSelect extends MusicBeatState
 
     var _drawDistance:Int = 4;
 	var _lastVisibles:Array<Int> = [];
+    // var posText:Int = -300;
 	public function updateTexts(elapsed:Float = 0.0)
 	{
 		lerpSelected = FlxMath.lerp(select, lerpSelected, Math.exp(-elapsed * 9.6));
@@ -339,6 +464,8 @@ class LevelSelect extends MusicBeatState
 		}
 		_lastVisibles = [];
 
+        // if (posText <= 150)
+        //     posText += Std.parseInt(Math.exp(-elapsed * 9.6));
 		var min:Int = Math.round(Math.max(0, Math.min(arraySong.length, lerpSelected - _drawDistance)));
 		var max:Int = Math.round(Math.max(0, Math.min(arraySong.length, lerpSelected + _drawDistance)));
 		for (i in min...max)
@@ -373,4 +500,17 @@ class LevelSelect extends MusicBeatState
 			_lastVisiblesOptions.push(i);
 		}
 	}
+
+
+    override function beatHit() 
+    {
+        super.beatHit();
+        if (curBeat % 1 == 0)
+            if (bfDJ.animation.curAnim.finished || bfDJ.animation.name == 'idle')	
+            {
+                bfDJ.animation.stop();
+                bfDJ.playAnim('idle');
+                // trace('Dance');
+            }
+    }
 }

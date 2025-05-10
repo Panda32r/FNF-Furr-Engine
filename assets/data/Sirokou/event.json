@@ -1,0 +1,206 @@
+{
+"event":
+    [
+        {
+            "step": 505,
+            "eventName":"charactersChange",
+            "value1": "dad",
+            "value2": "mouse 3"
+        },
+        {
+            "step": 511,
+            "eventName":"bitZoom",
+            "value1": "1"
+        },
+        {
+            "step": 828,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 829,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 860,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 861,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 937,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 938,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 941,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 942,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 957,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 958,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 972,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 974,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 976,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 978,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 980,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 982,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 984,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 986,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 988,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 990,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 1020,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 1021,
+            "eventName":"camerasZoom",
+            "value1": "1",
+            "value2": "1"
+        },
+        {
+            "step": 1311,
+            "eventName":"bitZoom",
+            "value1": "0"
+        },
+        {
+            "step": 1413,
+            "eventName":"bitZoom",
+            "value1": "2"
+        },
+        {
+            "step": 1667,
+            "eventName":"bitZoom",
+            "value1": "2"
+        },
+        {
+            "step": 1759,
+            "eventName":"bitZoom",
+            "value1": "2"
+        },
+        {
+            "step": 1838,
+            "eventName":"bitZoom",
+            "value1": "100"
+        },
+        {
+            "step": 1839,
+            "eventName":"charactersChange",
+            "value1": "dad",
+            "value2": "mouse"
+        },
+        {
+            "step": 2079,
+            "eventName":"bitZoom",
+            "value1": "0"
+        },
+        {
+            "step": 2080,
+            "eventName":"charactersChange",
+            "value1": "dad",
+            "value2": "mouse angry 2"
+        },
+        {
+            "step": 2350,
+            "eventName":"bitZoom",
+            "value1": "1"
+        },
+        {
+            "step": 2351,
+            "eventName":"charactersChange",
+            "value1": "dad",
+            "value2": "mouse 3"
+        },
+        {
+            "step": 2864,
+            "eventName":"bitZoom",
+            "value1": "100"
+        }
+    ]
+}

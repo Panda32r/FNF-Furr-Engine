@@ -1,8 +1,5 @@
 package objects;
 
-import flixel.graphics.frames.FlxAtlasFrames;
-
-
 class MyStrumNote extends FlxSprite{
 
     public var imgpng:String;
@@ -92,9 +89,19 @@ class MyStrumNote extends FlxSprite{
 
     public function playerPosition()
     {
-        x += 50;
-        x += ((FlxG.width / 2) * player);
-    }
+		x += 50;
+		if (!ClientSetings.data.middleScroll)
+			x += ((FlxG.width / 2) * player);
+		else
+			if (player == 1)
+				x += ((FlxG.width / 2) * player - Note.swagWidth * 2 - 50);
+			else
+				if (noteData < 2)
+					x += ((FlxG.width / 2) * player);
+				else
+					x += ((FlxG.width / 2) * 1 + 50);
+
+    }	
 
     public function playAnim(anim:String, ?force:Bool = false) {
 		animation.play(anim, force);
