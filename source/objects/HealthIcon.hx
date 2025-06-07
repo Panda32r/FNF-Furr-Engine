@@ -1,5 +1,6 @@
 package objects;
-
+// Сделал максимально похожую миханику определения анимаций как в Psych Engine
+// И вроди всё покачто норма работает :')
 class HealthIcon extends FlxSprite{
     var charector:String = '';
     var isPlayer:Bool = false;

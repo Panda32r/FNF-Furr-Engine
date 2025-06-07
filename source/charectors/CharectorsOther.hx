@@ -3,7 +3,6 @@ package charectors;
 
 import flixel.animation.FlxAnimation;
 import haxe.Json;
-import lime.utils.Assets;
 import openfl.display.BitmapData;
 
 import charectors.AnimationCharectors;
@@ -25,6 +24,7 @@ class CharectorsOther extends FlxSprite{
     private var x_changa:Int;
     private var y_changa:Int;
     private var daDad:Bool = false;
+    public var name:String;
 
     
     public var notFoundPathJson:FlxText;
@@ -40,8 +40,9 @@ class CharectorsOther extends FlxSprite{
 
     public var notFound = false;
     public function personagaChange(charactors:String, flipXCharectors:Bool = false)  {
+        name = charactors;
         var characterPath = 'assets/images/' + states + '/'+ charactors + '.json';
-
+        trace(characterPath);
         if (!(FileSystem.exists(characterPath)))
         {
             notFoundPathJson.text = 'Not Found characters/' + charactors;
@@ -66,7 +67,7 @@ class CharectorsOther extends FlxSprite{
         var charactersJson = File.getContent(characterPath).trim();
         var character:AnimationCharectors.FilePersonaga = Json.parse(charactersJson);
 
-        not_hold_play_animation = character.not_hold_play_animation ? true : false;
+        not_hold_play_animation = character.not_hold_play_animation;
             if (!changa)
                 changa = true;
             else
@@ -76,10 +77,21 @@ class CharectorsOther extends FlxSprite{
             }
             
             trace(character.image);
-            imgpng = BitmapData.fromFile('assets/images/'+ states + '/'+ character.image + '.png');
-            imgxml = File.getContent('assets/images/'+ states + '/' + character.image + '.xml');
-            xPosCam = character.camera_position[0];
-            yPosCam = character.camera_position[1];
+            if(!notFound)
+            {
+                imgpng = BitmapData.fromFile('assets/images/'+ states + '/'+ character.image + '.png');
+                imgxml = File.getContent('assets/images/'+ states + '/' + character.image + '.xml');
+            }
+            else
+            {
+                imgpng = BitmapData.fromFile('assets/images/'+ character.image + '.png');
+                imgxml = File.getContent('assets/images/' + character.image + '.xml');
+            }
+            if(states != "storymenu/props")
+            {           
+                xPosCam = character.camera_position[0];
+                yPosCam = character.camera_position[1];
+            }
             xPos = character.position[0];
             yPos = character.position[1];
             animOffsets = new Map<String, Array<Dynamic>>();

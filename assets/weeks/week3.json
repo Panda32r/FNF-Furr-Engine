@@ -1,0 +1,13 @@
+{
+    "weekImg":"week3",
+    "weekName":"Week Dad",
+    "song": 
+    [ 
+      ["pico", "dad", [255, 187, 113]], 
+      ["philly-nice", "dad", [255, 187, 113]],
+      ["blammed", "dad", [255, 187, 113]]
+    ],
+    "difficulties": ["easy", "normal", "hard"],
+    "charectors":["Dad", "Gf", "Bf"],
+    "description":"it's week dad, omg"
+}

@@ -2,6 +2,7 @@ package objects;
 
 // import openfl.filters.BlurFilter;
 
+import flixel.graphics.FlxGraphic;
 import flixel.math.FlxRect;
 
 class Note extends FlxSprite
@@ -10,6 +11,7 @@ class Note extends FlxSprite
     
     public var imgpng:String;
     public var imgxml:String;
+
     public var textyre:String;
     public var tex:FlxAtlasFrames;
     
@@ -74,9 +76,12 @@ class Note extends FlxSprite
 
             textyre = 'HURTNOTE_assets';
         }
+        // imgpng = BitmapData.fromFile('assets/images/' + textyre + '.png');
+        // imgxml = File.getContent('assets/images/' + textyre + '.xml');
 
         imgpng = 'assets/images/' + textyre + '.png';
         imgxml = 'assets/images/' + textyre + '.xml';
+
         tex = FlxAtlasFrames.fromSparrow(imgpng,imgxml);
         frames = tex;
 
@@ -142,18 +147,8 @@ class Note extends FlxSprite
             animation.play(arhold[noteData] + 'end');
             updateHitbox();
         }
-        reloadNotes = true;
-        // Забавный эфект измены стрелак
-        // colorTransform.redOffset = 255;
-        // colorTransform.greenOffset = 255;
-        // colorTransform.blueOffset = 255;
-        // colorTransform.redMultiplier = -1;
-        // colorTransform.greenMultiplier = -1;
-        // colorTransform.blueMultiplier = -1;
-        
-        
+        reloadNotes = true; 
     }
-
 
     override function update(elapsed:Float)
         {

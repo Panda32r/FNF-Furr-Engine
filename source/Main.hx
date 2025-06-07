@@ -54,20 +54,22 @@ class Main extends Sprite
 		Controls.instance = new Controls();
 		stage.color = null;
 
+		// FlxG.game.focusLostFramerate = 60;
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtError);
 
 	}
 
 	private function onUncaughtError(e:UncaughtErrorEvent):Void {
+        #if !neko
         e.preventDefault(); // Предотвращаем стандартное поведение (например, краш)
         
-		var errorMsg = "CRASH: " + Std.string(e.error);
+		var errorMsg = "CRASH: " + Std.string(e);
 		
 
         var errorMsg:String = "Произошла критическая ошибка:\n";
         
-        if (e.error != null) {
-            errorMsg += Std.string(e.error) + "\n\nStack Trace:\n" + haxe.CallStack.toString(haxe.CallStack.exceptionStack());
+        if (e != null) {
+            errorMsg += Std.string(e) + "\n\nStack Trace:\n" + haxe.CallStack.toString(haxe.CallStack.exceptionStack());
         } else {
             errorMsg += "Неизвестная ошибка.";
         }
@@ -77,6 +79,7 @@ class Main extends Sprite
         // Выводим окно с ошибкой
         Application.current.window.alert(errorMsg, "Error!");
 		Sys.exit(1);
+		#end
     }
 }
 

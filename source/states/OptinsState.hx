@@ -1,16 +1,19 @@
 package states;
 
+import states.subState.OptionsControl;
+
 class OptinsState extends MusicBeatState{
 
     static var selectCategories:Int = 0;
+    public static var isPlayState:Bool = false;
     public var optinsCategories:Array<String> = ['controls', 'graphics', 'preferences', 'visuals'];
-    public var optionsPreferences:Array<String> = ['downScroll', 'middleScroll', 'opponentStrums', 'ghostTap', 'healthDown', 'botPlay', 'sickHit', 'goodHit', 'badHit', 'skipLogoEngine'];
-    public var optionsGraphics:Array<String> = ['FPSmax', 'unlimitFPS', 'antialiasing'];
+    // public var optionsPreferences:Array<String> = ['downScroll', 'middleScroll', 'opponentStrums', 'ghostTap', 'healthDown', 'botPlay', 'sickHit', 'goodHit', 'badHit', 'skipLogoEngine'];
+    // public var optionsGraphics:Array<String> = ['FPSmax', 'unlimitFPS', 'antialiasing'];
     public var options:Array<Dynamic> =[
         ['controls', 'NoN'],
-        ['graphics', 'FPSmax', 'unlimitFPS', 'antialiasing'],
+        ['graphics', 'FPSmax', 'unlimitFPS', 'antialiasing', 'cacheSpr'],
         ['preferences', 'downScroll', 'middleScroll', 'opponentStrums', 'ghostTap', 'healthDown', 'botPlay', 'sickHit', 'goodHit', 'badHit', 'skipLogoEngine'],
-        ['visuals', 'NoN']
+        ['visuals', 'glovOponent', 'hidHUD', 'hidCombo', 'combocam', 'stileHPBarType', 'splashType', 'splashVisible', 'splashAlpha', 'visualizerVisible']
     ];
     var bg:FlxSprite;
     public var camCat:FlxCamera;
@@ -78,11 +81,16 @@ class OptinsState extends MusicBeatState{
 
             if (controls.justPressed('ACCEPT')) 
             {
-                menuItemsDop = [];
-                createMenuDop();
-                selectNow = true;
-                select = 0;
-                updateSeting();
+                if (selectCategories != 0)
+                {
+                    menuItemsDop = [];
+                    createMenuDop();
+                    selectNow = true;
+                    select = 0;
+                    updateSeting();
+                }
+                else
+                    FlxG.switchState(new OptionsControl());
             }
         }
         else
@@ -141,7 +149,13 @@ class OptinsState extends MusicBeatState{
                 camOpt.x = 300;
                 camOpt.y = 0;
                 FlxG.cameras.add(camOpt);
-                MusicBeatState.switchState(new MeinMenu());
+                if(!isPlayState)
+                    MusicBeatState.switchState(new MeinMenu());
+                else
+                {
+                    isPlayState = false;
+                    MusicBeatState.switchState(new PlayState());
+                }
             }
             select = 0;
             _lastVisiblesOptions = [];
@@ -230,8 +244,26 @@ class OptinsState extends MusicBeatState{
                 menuItemsDop[i].text = 'Unlimited FPS => ' + ClientSetings.data.unlimitFPS ;
             if (dynamicOptions[i+1] == 'antialiasing')
                 menuItemsDop[i].text = 'Antialiasing => ' + ClientSetings.data.antialiasing ;
-            
-            
+            if (dynamicOptions[i+1] == 'glovOponent')
+                menuItemsDop[i].text = 'Sing Note Opponent => ' + ClientSetings.data.glovOponent ;
+            if (dynamicOptions[i+1] == 'hidHUD')
+                menuItemsDop[i].text = 'Hide HUD => ' + ClientSetings.data.hidHUD ;
+            if (dynamicOptions[i+1] == 'hidCombo')
+                menuItemsDop[i].text = 'Hide Combo => ' + ClientSetings.data.hidCombo ;
+            if (dynamicOptions[i+1] == 'combocam')
+                menuItemsDop[i].text = 'Combo camera => ' + ClientSetings.data.comboCam[ClientSetings.data.combocam] ;
+            if (dynamicOptions[i+1] == 'stileHPBarType')
+                menuItemsDop[i].text = 'Stile HP Bar => ' + ClientSetings.data.stileHPBarArray[ClientSetings.data.stileHPBarType] ;
+            if (dynamicOptions[i+1] == 'splashType')
+                menuItemsDop[i].text = 'Splash => ' + ClientSetings.data.splashArray[ClientSetings.data.splashType] ;
+            if (dynamicOptions[i+1] == 'splashVisible')
+                menuItemsDop[i].text = 'Splash Visible => ' + ClientSetings.data.splashVisible ;
+            if (dynamicOptions[i+1] == 'splashAlpha')
+                menuItemsDop[i].text = 'Splash Alpha => ' + ClientSetings.data.splashAlpha * 100 + '%' ;
+            if (dynamicOptions[i+1] == 'visualizerVisible')
+                menuItemsDop[i].text = 'Visualizer Visible => ' + ClientSetings.data.visualizerVisible ;
+            if (dynamicOptions[i+1] == 'cacheSpr')
+                menuItemsDop[i].text = 'Cache Sprite Charectors => ' + ClientSetings.data.cacheSpr ;
         }
     }
 
@@ -291,23 +323,92 @@ class OptinsState extends MusicBeatState{
                         NewSeting = !(ClientSetings.data.antialiasing);
                     ClientSetings.data.antialiasing = NewSeting ;
                 }
+                if (dynamicOptions[i+1] == 'glovOponent')
+                {
+                    if(KeyAccept)
+                        NewSeting = !(ClientSetings.data.glovOponent);
+                    ClientSetings.data.glovOponent = NewSeting ;
+                }
+                if (dynamicOptions[i+1] == 'hidHUD')
+                {
+                    if(KeyAccept)
+                        NewSeting = !(ClientSetings.data.hidHUD);
+                    ClientSetings.data.hidHUD = NewSeting ;
+                }
+                if (dynamicOptions[i+1] == 'hidCombo')
+                {
+                    if(KeyAccept)
+                        NewSeting = !(ClientSetings.data.hidCombo);
+                    ClientSetings.data.hidCombo = NewSeting ;
+                }
                 if (dynamicOptions[i+1] == 'unlimitFPS')
                 {
                     if(KeyAccept)
                         NewSeting = !(ClientSetings.data.unlimitFPS);
                     ClientSetings.data.unlimitFPS = NewSeting ;
+                    if(ClientSetings.data.unlimitFPS)
+                        ClientSetings.data.FPSmax = 999;
+                    else
+                        ClientSetings.data.FPSmax = 60;
+                    // ClientSetings.loadPrefs();
                 }
                 if (dynamicOptions[i+1] == 'FPSmax')
+                {
                     ClientSetings.data.FPSmax += keyLR;
+                    // ClientSetings.loadPrefs();
+                }
                 if (dynamicOptions[i+1] == 'sickHit')
                     ClientSetings.data.sickHit += keyLR;
                 if (dynamicOptions[i+1] == 'goodHit')
                     ClientSetings.data.goodHit += keyLR;
                 if (dynamicOptions[i+1] == 'badHit')
                     ClientSetings.data.badHit  += keyLR;
+                if (dynamicOptions[i+1] == 'combocam')
+                    if (keyLR < 0)
+                    {
+                        if (!(ClientSetings.data.combocam <= 0))
+                            ClientSetings.data.combocam  += keyLR;
+                        else 
+                            ClientSetings.data.combocam == ClientSetings.data.comboCam.length - 1;
+                    }
+                    else
+                    {
+                        if (!(ClientSetings.data.combocam >= ClientSetings.data.comboCam.length - 1))
+                            ClientSetings.data.combocam  += keyLR;
+                        else 
+                            ClientSetings.data.combocam == 0;
+                    }
+                if (dynamicOptions[i+1] == 'stileHPBarType')
+                    if (keyLR < 0)
+                    {
+                        if (!(ClientSetings.data.stileHPBarType <= 0))
+                            ClientSetings.data.stileHPBarType  += keyLR;
+                        else 
+                            ClientSetings.data.stileHPBarType == ClientSetings.data.stileHPBarArray.length - 1;
+                    }
+                    else
+                    {
+                        if (!(ClientSetings.data.stileHPBarType >= ClientSetings.data.stileHPBarArray.length - 1))
+                            ClientSetings.data.stileHPBarType  += keyLR;
+                        else 
+                            ClientSetings.data.stileHPBarType == 0;
+                    }
+                if (dynamicOptions[i+1] == 'visualizerVisible')
+                {
+                    if(KeyAccept)
+                        NewSeting = !(ClientSetings.data.visualizerVisible);
+                    ClientSetings.data.visualizerVisible = NewSeting ;
+                }
+                if (dynamicOptions[i+1] == 'cacheSpr')
+                {
+                    if(KeyAccept)
+                        NewSeting = !(ClientSetings.data.cacheSpr);
+                    ClientSetings.data.cacheSpr = NewSeting ;
+                }
             }
         }
         ClientSetings.saveSettings();
+        ClientSetings.loadPrefs();
         updateSeting();
     }
 

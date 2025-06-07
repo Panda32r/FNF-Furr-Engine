@@ -13,6 +13,7 @@ typedef FilePersonaga = {
     var scale:Float;
     var healthbar_colors:Array<Int>;
     var not_hold_play_animation:Bool;
+    var healthicon:String;
 }
 
 typedef Anim = {

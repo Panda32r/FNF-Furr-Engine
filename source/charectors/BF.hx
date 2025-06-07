@@ -7,6 +7,7 @@ import lime.utils.Assets;
 import charectors.AnimationCharectors;
 
 
+
 class BF extends FlxSprite{
     public var animOffsets:Map<String, Array<Dynamic>>;
     public var tex:FlxAtlasFrames;
@@ -23,6 +24,8 @@ class BF extends FlxSprite{
     private var x_changa:Int;
     private var y_changa:Int;
     private var daDad:Bool = false;
+    public var name:String;
+    public var icon:String;
 
     
     public var notFoundPathJson:FlxText;
@@ -30,6 +33,7 @@ class BF extends FlxSprite{
         super(x, y);
         notFoundPathJson = new FlxText(x + 60, y + 450, 200, '');
 		notFoundPathJson.setFormat('assets/fonts/vcr.ttf', 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        name = charactors;
         daDad = isDad;
         personagaChange(charactors,flipXCharectors);
         
@@ -82,6 +86,8 @@ class BF extends FlxSprite{
             animOffsets = new Map<String, Array<Dynamic>>();
             scale.x = character.scale;
             scale.y = character.scale;
+            icon = character.healthicon;
+            
             tex = FlxAtlasFrames.fromSparrow(imgpng, imgxml);
             frames = tex;
             
@@ -99,7 +105,11 @@ class BF extends FlxSprite{
                 
                 addOffset(characterAnim.anim, characterAnim.offsets[0], characterAnim.offsets[1]);
             }
-            antialiasing = true;
+            
+            if (ClientSetings.data.antialiasing)
+                antialiasing = !(character.no_antialiasing);
+            else
+                antialiasing = false;
         
             x += character.position[0];
             y += character.position[1];
@@ -124,8 +134,15 @@ class BF extends FlxSprite{
                 alpha = 1;
                 color = FlxColor.fromString('#FFFFFF');
             }
+            // cacheAsBitmap = true;
     }
-
+    override function update(elapsed:Float)
+	{
+		// var fixedElapsed = 1 / 360;
+        // super.update(fixedElapsed);
+        // animation.update(elapsed);
+        super.update(elapsed);
+    }
 
     public function hasAnimation(animationName:String):Bool
     {
@@ -141,8 +158,7 @@ class BF extends FlxSprite{
 
     public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
         {
-            if (hasAnimation(AnimName))
-            {
+            if (!hasAnimation(AnimName)) return;
                 animation.play(AnimName, Force, Reversed, Frame);
         
                 var daOffset = animOffsets.get(animation.curAnim.name);
@@ -150,6 +166,5 @@ class BF extends FlxSprite{
                 {
                     offset.set(daOffset[0], daOffset[1]);
                 }
-            }
         }
 }

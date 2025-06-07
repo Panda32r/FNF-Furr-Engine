@@ -26,7 +26,9 @@
 
 	<!--Mobile-specific-->
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" vsync="false"/>
-
+	<!-- Делает игру 32 бит и под vista вроди -->
+	<!-- <window if= "windows" compatibility-mode="vista"/> -->
+	<!-- <haxedef name = "HXCPP_M32"/> -->
 	<!-- <window borderless="true"/> -->
 
 	<!-- _____________________________ Path Settings ____________________________ -->
@@ -40,9 +42,15 @@
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
+	<!-- <architecture name="windows" if="windows" />
+	<window x32="true" if="windows" />  -->
+
 	<haxelib name="flixel" version="5.6.1"/>
 	<haxelib name="flixel-addons" version="3.2.2"/>
 	<haxelib name="tjson" version="1.4.0"/>
+
+	<haxelib name="funkin.vis"/>
+	<haxelib name="grig.audio"/>
 
 	<!--Psych stuff needed-->
 	<!-- <haxelib name="linc_luajit" if="LUA_ALLOWED"/> -->

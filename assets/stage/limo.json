@@ -1,0 +1,11 @@
+{
+    "BF_POS":[1030, -120],
+    "GF_POS":[400, 130],
+    "DAD_POS":[100, 100],
+    "CAM_POS_BF":[0,0],
+    "CAM_POS_GF":[0,0],
+    "CAM_POS_DAD":[0,0],
+    "BG":[],
+
+    "CamZoom":0.9 
+}

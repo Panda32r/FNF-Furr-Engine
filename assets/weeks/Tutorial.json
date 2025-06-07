@@ -1,0 +1,11 @@
+{
+    "weekImg":"tutorial",
+    "weekName":"Week Dad",
+    "song": 
+    [ 
+      ["tutorial", "dad", [255, 187, 113]]
+    ],
+    "difficulties": ["easy", "normal", "hard"],
+    "charectors":["Dad", "Gf", "Bf"],
+    "description":"it's week dad, omg"
+}

@@ -1,0 +1,13 @@
+{
+    "weekImg":"week5",
+    "weekName":"Week Mom & Dad",
+    "song": 
+    [ 
+      ["cocoa", "dad", [255, 187, 113]], 
+      ["eggnog", "dad", [255, 187, 113]],
+      ["winter-horrorland", "dad", [255, 187, 113]]
+    ],
+    "difficulties": ["easy", "normal", "hard"],
+    "charectors":["Dad", "Gf", "Bf"],
+    "description":"it's week dad, omg"
+}

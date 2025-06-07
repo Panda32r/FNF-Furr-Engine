@@ -12,7 +12,7 @@ class LevelSelect extends MusicBeatState
     public var rSong:RandomSongForDemo = new RandomSongForDemo();
     public var arraySong:Array<String> = [];
     var menuItems:Array<FlxText> = [];
-    var select:Int = 0;
+    public static var select:Int = 0;
     var lerpSelected:Float = 0;
     var lerpSelectedOptions:Float = 0;
 
@@ -32,20 +32,13 @@ class LevelSelect extends MusicBeatState
     var menuItemsOptions:Array<FlxText> = [];
     var selectOptions:Int = 0;
 
-    public static var isCurStep:Int = 0;
-    public static var iSCurBeat:Int = 0;
-
-    public static var isTotalSteps:Int = 0;
-    public static var isTotalBeats:Int = 0;
-
-    public static var islastStep:Float = 0;
-    public static var islastBeat:Float = 0;
-
     override public function create():Void
     {	
         super.create();
 
         Conductor.changeBPM(102);
+
+        SavePosSongNotGamplay.loadPos(curStep, curBeat, totalSteps, totalBeats, lastStep, lastBeat);
 
         camGame = new FlxCamera();
 		camGame.bgColor = FlxColor.BLACK;
@@ -145,7 +138,7 @@ class LevelSelect extends MusicBeatState
 
         if (FlxG.sound.music == null)
         {
-            FlxG.sound.playMusic(AssetPaths.freakyMenu__ogg, 1);
+            FlxG.sound.playMusic('assets/music/freakyMenu.ogg', 1);
             // song.play();
         }
 
@@ -154,16 +147,6 @@ class LevelSelect extends MusicBeatState
             Conductor.songPosition = FlxG.sound.music.time;
 
         FlxG.sound.music.onComplete = SongEnd;
-
-        curStep = isCurStep;
-        curBeat = iSCurBeat;
-
-        totalSteps = isTotalSteps;
-        totalBeats = isTotalBeats;
-
-        lastStep = islastStep;
-        lastBeat = islastBeat;
-
     }
 
     function SongEnd() 
@@ -211,7 +194,7 @@ class LevelSelect extends MusicBeatState
 
             if (controls.justPressed('ACCEPT')) 
             {
-                FlxG.sound.playMusic(AssetPaths.freakyMenu__ogg, 0);
+                FlxG.sound.music.stop();
                 if(arraySong[select] != 'random song')
                     // PlayState.curSong = arraySong[select];
                     {
@@ -242,15 +225,9 @@ class LevelSelect extends MusicBeatState
             }
             if (controls.justPressed('BACK'))
                 {
-                    MusicBeatState.switchState(new TitleState());
-                    isCurStep = curStep;
-                    iSCurBeat = curBeat;
+                    MusicBeatState.switchState(new MeinMenu());
+                    SavePosSongNotGamplay.savePos(curStep, curBeat, totalSteps, totalBeats, lastStep, lastBeat);
 
-                    isTotalSteps = totalSteps;
-                    isTotalBeats = totalBeats;
-
-                    islastStep = lastStep;
-                    islastBeat = lastBeat;
                 }
             // updateSelection();
         }

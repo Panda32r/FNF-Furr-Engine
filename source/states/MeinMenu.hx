@@ -14,7 +14,7 @@ class MeinMenu extends MusicBeatState
 
     var menu:Array<String> = ['storymode', 'freeplay', 'credits', 'options'];
     var menuItems:Array<FlxSprite> = [];
-    var select:Int = 0;
+    public static var select:Int = 0;
     var lerpSelected:Float = 0;
     override public function create():Void
     {
@@ -37,15 +37,8 @@ class MeinMenu extends MusicBeatState
 
         FlxG.sound.music.onComplete = SongEnd;
 
-        curStep = LevelSelect.isCurStep;
-        curBeat = LevelSelect.iSCurBeat;
-
-        totalSteps = LevelSelect.isTotalSteps;
-        totalBeats = LevelSelect.isTotalBeats;
-
-        lastStep = LevelSelect.islastStep;
-        lastBeat = LevelSelect.islastBeat;
-
+        SavePosSongNotGamplay.loadPos(curStep, curBeat, totalSteps, totalBeats, lastStep, lastBeat);
+        
         var bg = new FlxSprite();
         bg.loadGraphic("assets/images/menuBG.png"); // Загружаем изображение
         bg.setGraphicSize(FlxG.width, FlxG.height); // Растягиваем на весь экран
@@ -60,6 +53,9 @@ class MeinMenu extends MusicBeatState
 
     override public function update(elapsed:Float) 
     {
+        if (FlxG.sound.music != null) 
+            Conductor.songPosition = FlxG.sound.music.time;
+
         super.update(elapsed);
         if(controls.justPressed('ui_up'))
         {
@@ -80,7 +76,7 @@ class MeinMenu extends MusicBeatState
             onSelectMenu();
             // trace(select);
         }
-
+        
         if (controls.justPressed('ACCEPT')) 
         {
             if (menu[select] == 'freeplay')
@@ -88,34 +84,25 @@ class MeinMenu extends MusicBeatState
             var mySound:FlxSound = FlxG.sound.play("assets/sounds/confirmMenu.ogg", 0.4);
             mySound.onComplete = function() 
                 { 
-
-                    LevelSelect.isCurStep = curStep;
-                    LevelSelect.iSCurBeat = curBeat;
-
-                    LevelSelect.isTotalSteps = totalSteps;
-                    LevelSelect.isTotalBeats = totalBeats;
-
-                    LevelSelect.islastStep = lastStep;
-                    LevelSelect.islastBeat = lastBeat;
-
+                    SavePosSongNotGamplay.savePos(curStep, curBeat, totalSteps, totalBeats, lastStep, lastBeat);
                     FlxG.switchState(new LevelSelect());
+                }
+            }
+            if (menu[select] == 'storymode')
+            {   
+            var mySound:FlxSound = FlxG.sound.play("assets/sounds/confirmMenu.ogg", 0.4);
+            mySound.onComplete = function() 
+                { 
+
+                    SavePosSongNotGamplay.savePos(curStep, curBeat, totalSteps, totalBeats, lastStep, lastBeat);
+                    FlxG.switchState(new StoryState());
                 }
             }
             if (menu[select] == 'options')
             {   
             var mySound:FlxSound = FlxG.sound.play("assets/sounds/confirmMenu.ogg", 0.4);
             mySound.onComplete = function() 
-                { 
-
-                    LevelSelect.isCurStep = curStep;
-                    LevelSelect.iSCurBeat = curBeat;
-
-                    LevelSelect.isTotalSteps = totalSteps;
-                    LevelSelect.isTotalBeats = totalBeats;
-
-                    LevelSelect.islastStep = lastStep;
-                    LevelSelect.islastBeat = lastBeat;
-                }
+                SavePosSongNotGamplay.savePos(curStep, curBeat, totalSteps, totalBeats, lastStep, lastBeat);
                 MusicBeatState.switchState(new OptinsState());
             }
             new FlxTimer().start(0.6, function(timer:FlxTimer) {
@@ -132,14 +119,8 @@ class MeinMenu extends MusicBeatState
         if (controls.justPressed('BACK'))
         {
             MusicBeatState.switchState(new TitleState());
-            LevelSelect.isCurStep = curStep;
-            LevelSelect.iSCurBeat = curBeat;
+            SavePosSongNotGamplay.savePos(curStep, curBeat, totalSteps, totalBeats, lastStep, lastBeat);
 
-            LevelSelect.isTotalSteps = totalSteps;
-            LevelSelect.isTotalBeats = totalBeats;
-
-            LevelSelect.islastStep = lastStep;
-            LevelSelect.islastBeat = lastBeat;
         }
     }
 

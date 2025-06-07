@@ -1,0 +1,13 @@
+{
+    "weekImg":"week1",
+    "weekName":"Week Dad",
+    "song": 
+    [ 
+      ["bopeebo", "dad", [255, 187, 113]], 
+      ["fresh", "dad", [255, 187, 113]],
+      ["dad-battle", "dad", [255, 187, 113]]
+    ],
+    "difficulties": ["easy", "normal", "hard"],
+    "charectors":["Dad", "Gf", "Bf"],
+    "description":"it's week dad, omg"
+}

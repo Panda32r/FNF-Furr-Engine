@@ -22,8 +22,21 @@ typedef SwagSong =
 	var player2:String;
 	var player3:String;
 
+	var gfVersion:String;
+
 	var format:String;
 	
+}
+
+typedef SwagSection =
+{
+	var sectionNotes:Array<Dynamic>;
+	var mustHitSection:Bool;
+	var bpm:Int;
+	var altAnim:Bool;
+	var gfSection:Bool;
+	var changeBPM:Bool;
+	var sectionBeats:Float;
 }
 
 class Song
@@ -42,6 +55,13 @@ class Song
 	public var stage:String = 'stage';
 
 	public var format:String = 'FurrEngine_0.1';
+
+	public var sectionNotes:Array<Dynamic> = [];
+
+	public var mustHitSection:Bool = true;
+	public var altAnim:Bool = false;
+	public var gfSection:Bool = false; 
+	public var changeBPM:Bool = false;
 
 	public function new(song, notes, bpm, sections)
 	{
@@ -65,6 +85,17 @@ class Song
 		}
 
 		var swagShit:SwagSong = cast Json.parse(rawJson).song;
+
+		if(swagShit.gfVersion != null)
+			swagShit.player3 = swagShit.gfVersion;
+		for (i in 0...swagShit.notes.length)
+		{
+			if(swagShit.notes[i].changeBPM != true)
+				swagShit.notes[i].changeBPM = false;
+			trace(swagShit.notes[i].changeBPM);
+			// trace('LOADED FROM JSON: ' + songData.notes[i].sectionNotes);
+			// // songData.notes[i].sectionNotes = songData.notes[i].sectionNotes
+		}
 		// trace(swagShit.notes[0]);
 
 		// FIX THE CASTING ON WINDOWS/NATIVE

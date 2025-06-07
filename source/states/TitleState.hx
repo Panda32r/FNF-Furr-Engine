@@ -1,6 +1,7 @@
 package states;
 
 
+import objects.Visualizer;
 import backend.RandomSongForDemo;
 import charectors.CharectorsOther;
 import flixel.util.FlxColor;
@@ -28,6 +29,8 @@ class TitleState extends MusicBeatState
 
     public var titleEnter:FlxSprite;
     var pressEnter:Bool = false;
+
+    var visualizer:Visualizer;
     override public function create():Void 
     {
         super.create();
@@ -61,9 +64,14 @@ class TitleState extends MusicBeatState
         // add(bg_alhpa);
         // FlxTransWindow.getWindowsTransparent();
 
-        // song = FlxG.sound.load(AssetPaths.freakyMenu__ogg, 1, false);
+        // song = FlxG.sound.load('assets/music/freakyMenu.ogg', 1, false);
 
-
+        if (ClientSetings.data.visualizerVisible)
+		{
+            visualizer = new Visualizer(0, 400, 120);
+            visualizer.cameras = [camGame];
+            add(visualizer);
+        }
         gf = new CharectorsOther(500, 50, 'gf', 'TitleState');
         gf.updateHitbox();
         add(gf);
@@ -92,9 +100,11 @@ class TitleState extends MusicBeatState
 
         if (FlxG.sound.music == null)
         {
-            FlxG.sound.playMusic(AssetPaths.freakyMenu__ogg, 1);
+            FlxG.sound.playMusic('assets/music/freakyMenu.ogg', 1);
             // song.play();
         }
+        if (ClientSetings.data.visualizerVisible)
+            visualizer.snd = FlxG.sound.music;
 
         if (FlxG.sound.music != null) 
             Conductor.songPosition = FlxG.sound.music.time;
@@ -105,14 +115,8 @@ class TitleState extends MusicBeatState
 
         gf.playAnim('danceRight');
 
-        curStep = LevelSelect.isCurStep;
-        curBeat = LevelSelect.iSCurBeat;
+        SavePosSongNotGamplay.loadPos(curStep, curBeat, totalSteps, totalBeats, lastStep, lastBeat);
 
-        totalSteps = LevelSelect.isTotalSteps;
-        totalBeats = LevelSelect.isTotalBeats;
-
-        lastStep = LevelSelect.islastStep;
-        lastBeat = LevelSelect.islastBeat;
     }
 
     var animEnter:Bool = false;
@@ -133,22 +137,15 @@ class TitleState extends MusicBeatState
             var mySound:FlxSound = FlxG.sound.play("assets/sounds/confirmMenu.ogg", 0.4);
             mySound.onComplete = function() 
                     MusicBeatState.switchState(new MeinMenu());
-            LevelSelect.isCurStep = curStep;
-            LevelSelect.iSCurBeat = curBeat;
-
-            LevelSelect.isTotalSteps = totalSteps;
-            LevelSelect.isTotalBeats = totalBeats;
-
-            LevelSelect.islastStep = lastStep;
-            LevelSelect.islastBeat = lastBeat;
-                
+            SavePosSongNotGamplay.savePos(curStep, curBeat, totalSteps, totalBeats, lastStep, lastBeat);
         }
         if (FlxG.sound.music != null)
         {    // Conductor.songPosition = song.time;
             Conductor.songPosition = FlxG.sound.music.time;
         }
-        if (controls.justPressed('BACK'))
-            MusicBeatState.switchState(new MeinMenu());
+        // if (controls.justPressed('BACK'))
+        //     {MusicBeatState.switchState(new Watafak());
+        //         FlxG.sound.playMusic('assets/music/freakyMenu.ogg', 0);}
     } 
 
     override function beatHit() 
@@ -166,7 +163,7 @@ class TitleState extends MusicBeatState
 
     function SongEnd() 
 	{
-        FlxG.sound.playMusic(AssetPaths.freakyMenu__ogg, 0);
+        FlxG.sound.playMusic('assets/music/freakyMenu.ogg', 0);
         PlayState.SONG = Song.loadFromJson(rSong.randSong,rSong.randSong);
         PlayState.EVENT = EventJson.loadJson(rSong.randSong);
         PlayState.songName = rSong.randSong;

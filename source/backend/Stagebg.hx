@@ -69,7 +69,7 @@ class Stagebg extends FlxSprite {
         trace(dad_pos);
         trace(gf_pos);
 
-
+        if(stages.BG.length > 0)
         for (i in 0 ... stages.BG.length)
         {
             bg = stages.BG[i];

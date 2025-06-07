@@ -2,7 +2,7 @@ package objects;
 
 class MyStrumNote extends FlxSprite{
 
-    public var imgpng:String;
+    public var imgpng:BitmapData;
     public var imgxml:String;
     public var tex:FlxAtlasFrames;
 
@@ -19,8 +19,8 @@ class MyStrumNote extends FlxSprite{
 		this.player = player;
 		this.noteData = leData;
 		this.ID = noteData;
-        this.imgpng = 'assets/images/' + img + '.png';
-        this.imgxml = 'assets/images/' + img + '.xml';
+        this.imgpng = BitmapData.fromFile('assets/images/'+ img + '.png');
+        this.imgxml = File.getContent('assets/images/' + img + '.xml');
 		super(x, y);
 
 		shitReloadNoteList();
@@ -33,8 +33,6 @@ class MyStrumNote extends FlxSprite{
         var lastAnim:String = null;
 		if(animation.curAnim != null) lastAnim = animation.curAnim.name;
 
-			var plx:Int = 0; 
-
 			tex = FlxAtlasFrames.fromSparrow(imgpng,imgxml);
 			frames = tex;
 
@@ -46,7 +44,7 @@ class MyStrumNote extends FlxSprite{
 			animation.addByPrefix('red', 'arrowRIGHT');
 		
 			setGraphicSize(Std.int(width * 0.7));
-			antialiasing = true;
+			antialiasing = ClientSetings.data.antialiasing;
 
 
 			switch (Math.abs(noteData) % 4)

@@ -8,6 +8,7 @@ typedef SwagSection =
 	var altAnim:Bool;
 	var gfSection:Bool;
 	var changeBPM:Bool;
+	var sectionBeats:Float;
 }
 
 class Section
