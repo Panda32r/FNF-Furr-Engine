@@ -84,13 +84,50 @@ class HsShit
                                         doTweenNoteOpponent(key, {y: value}, time, ease, tag);
                                 });
 
+        intShit.variables.set("doTweenAlpha", 
+                                function(?tag:String, spr:Dynamic, value:Float, time:Float, ease:String = 'linear') {
+                                        doTweenAlpha(spr, {alpha: value}, time, ease, tag);
+                                });
+
+        intShit.variables.set("doTweenX", 
+                                function(?tag:String, spr:Dynamic, value:Float, time:Float, ease:String = 'linear') {
+                                        doTween(spr, {x: value}, time, ease, tag);
+                                });
+        intShit.variables.set("doTweenY", 
+                                function(?tag:String, spr:Dynamic, value:Float, time:Float, ease:String = 'linear') {
+                                        doTween(spr, {y: value}, time, ease, tag);
+                                });
+
     }
 
     public function doTweenNotePlayer(key:Int, data:Dynamic, time:Float, easeFlx:String, tag:String) 
     {
         trace('Tween Startit!!');
         var spr:Dynamic = PlayState.instance.playerStrums.members[key % PlayState.instance.playerStrums.length];
-        var sprSp = PlayState.instance.spleshPlayer.members[key % PlayState.instance.spleshPlayer.length];
+        var sprSpl:Dynamic = PlayState.instance.spleshPlayer.members[key % PlayState.instance.spleshPlayer.length];
+        if(tag != null)
+        {
+            FlxTween.tween(spr, data, time, {
+                ease: TweenEaseAll.SelectEase(easeFlx),
+                onComplete: function(twn:FlxTween) {
+                    game.callForScript("onTweenCompleted", tag);
+                }
+            });
+            // FlxTween.tween(sprSp, data, time, {ease: TweenEaseAll.SelectEase(easeFlx)});
+        }
+        else
+        {
+            FlxTween.tween(spr, data, time, {ease: TweenEaseAll.SelectEase(easeFlx)});
+            // FlxTween.tween(sprSp, data, time, {ease: TweenEaseAll.SelectEase(easeFlx)});
+        }
+        FlxTween.tween(sprSpl, data, time, {ease: TweenEaseAll.SelectEase(easeFlx)});
+    }
+
+    
+    public function doTweenNoteOpponent(key:Int, data:Dynamic, time:Float, easeFlx:String, tag:String) 
+    {
+        trace('Tween Startit!!');
+        var spr:Dynamic = PlayState.instance.dadStrums.members[key % PlayState.instance.dadStrums.length];
         if(tag != null)
         {
             FlxTween.tween(spr, data, time, {
@@ -108,13 +145,38 @@ class HsShit
         }
     }
 
-    
-    public function doTweenNoteOpponent(key:Int, data:Dynamic, time:Float, easeFlx:String, tag:String) 
-    {
-        trace('Tween Startit!!');
-        var spr:Dynamic = PlayState.instance.dadStrums.members[key % PlayState.instance.dadStrums.length];
-        FlxTween.tween(spr, data, time, {ease: TweenEaseAll.SelectEase(easeFlx)});
+    public function doTweenAlpha(spr:Dynamic, data:Dynamic, time:Float, easeFlx:String, tag:String) {
+        if(tag != null)
+
+            FlxTween.tween(spr, data, time, {
+                ease: TweenEaseAll.SelectEase(easeFlx),
+                onComplete: function(twn:FlxTween) {
+                    game.callForScript("onTweenCompleted", tag);
+                }
+            });
+
+        else
+
+            FlxTween.tween(spr, data, time, {ease: TweenEaseAll.SelectEase(easeFlx)});
+
     }
+
+    public function doTween(spr:Dynamic, data:Dynamic, time:Float, easeFlx:String, tag:String) {
+        if(tag != null)
+
+            FlxTween.tween(spr, data, time, {
+                ease: TweenEaseAll.SelectEase(easeFlx),
+                onComplete: function(twn:FlxTween) {
+                    game.callForScript("onTweenCompleted", tag);
+                }
+            });
+
+        else
+
+            FlxTween.tween(spr, data, time, {ease: TweenEaseAll.SelectEase(easeFlx)});
+
+    }
+    
 
     public function loadScriptFile(path:String):String 
     {

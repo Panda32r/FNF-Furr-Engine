@@ -1,0 +1,55 @@
+{
+	"animations": [
+		{
+			"offsets": [-57, 69],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "YcrMadIDLE0"
+		},
+		{
+			"offsets": [180, 69],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "YcrMadLEFT0"
+		},
+		{
+			"offsets": [69, -23],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "YcrMadDOWN00"
+		},
+		{
+			"offsets": [569, 198],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "YcrMadUP0"
+		},
+		{
+			"offsets": [-160, 0],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "YcrMadRIGHT0"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/sonic_exe/SonicYCRmad",
+	"position": [-130, 370],
+	"healthicon": "ycr-pissy",
+	"flip_x": false,
+	"healthbar_colors": [22, 13, 135],
+	"camera_position": [-70, 10],
+	"sing_duration": 6.1,
+	"scale": 1,
+	"_editor_isPlayer": false
+}

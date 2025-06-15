@@ -1,0 +1,53 @@
+{
+    "BF_POS":[770, 130],
+    "GF_POS":[300, 130],
+    "DAD_POS":[100, 100],
+    "CAM_POS_BF":[0,0],
+    "CAM_POS_GF":[0,0],
+    "CAM_POS_DAD":[0,0],
+    "BG":
+    [
+        {
+            "img":"stage/stageback",
+            "pos":[-600,-200],
+            "scale":[1,1],
+            "scrol":[0.9,0.9],
+            "flipX": false,
+            "flipY": false
+        },
+        {
+            "img":"stage/stagefront",
+            "pos":[-650,600],
+            "scale":[1,1],
+            "scrol":[0.9,0.9],
+            "flipX": false,
+            "flipY": false
+        },
+        {
+            "img":"stage/stage_light",
+            "pos":[-125,-100],
+            "scale":[1,1],
+            "scrol":[0.9,0.9],
+            "flipX": false,
+            "flipY": false
+        },
+        {
+            "img":"stage/stage_light",
+            "pos":[1225,-100],
+            "scale":[1,1],
+            "scrol":[0.9,0.9],
+            "flipX": true,
+            "flipY": false
+        },
+        {
+            "img":"stage/stagecurtains",
+            "pos":[-500,-300],
+            "scale":[1,1],
+            "scrol":[1.3,1.3],
+            "flipX": false,
+            "flipY": false
+        }
+    ],
+
+    "CamZoom":0.8 
+}

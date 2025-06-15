@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Logo_head.png">
+	<!-- Created with Adobe Animate version 21.0.9.42677 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="head_finel_anim0000" x="0" y="0" width="461" height="341" frameX="-6" frameY="0" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0001" x="461" y="0" width="405" height="401" frameX="-53" frameY="-122" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0002" x="866" y="0" width="356" height="431" frameX="-78" frameY="-389" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0003" x="1222" y="0" width="522" height="301" frameX="0" frameY="-728" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0004" x="1222" y="0" width="522" height="301" frameX="0" frameY="-728" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0005" x="1744" y="0" width="384" height="401" frameX="-66" frameY="-626" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0006" x="2128" y="0" width="415" height="334" frameX="-50" frameY="-694" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0007" x="2543" y="0" width="469" height="319" frameX="-23" frameY="-711" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0008" x="3012" y="0" width="457" height="329" frameX="-29" frameY="-701" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0009" x="3469" y="0" width="454" height="355" frameX="-43" frameY="-676" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0010" x="3469" y="0" width="454" height="355" frameX="-43" frameY="-676" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0011" x="3469" y="0" width="454" height="355" frameX="-43" frameY="-676" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0012" x="0" y="431" width="452" height="345" frameX="-35" frameY="-685" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0013" x="452" y="431" width="450" height="341" frameX="-33" frameY="-689" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0014" x="902" y="431" width="442" height="359" frameX="-25" frameY="-675" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0015" x="1344" y="431" width="440" height="367" frameX="-23" frameY="-668" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0016" x="1344" y="431" width="440" height="367" frameX="-23" frameY="-668" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0017" x="1784" y="431" width="442" height="355" frameX="-27" frameY="-678" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0018" x="1784" y="431" width="442" height="355" frameX="-27" frameY="-678" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0019" x="2226" y="431" width="464" height="329" frameX="-29" frameY="-699" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0020" x="2690" y="431" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0021" x="3139" y="431" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0022" x="3588" y="431" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0023" x="0" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0024" x="449" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0025" x="449" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0026" x="898" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0027" x="898" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0028" x="1347" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0029" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0030" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0031" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0032" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0033" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0034" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0035" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0036" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0037" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0038" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0039" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0040" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0041" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0042" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0043" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0044" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0045" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0046" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0047" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0048" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0049" x="1796" y="798" width="449" height="342" frameX="-34" frameY="-690" frameWidth="522" frameHeight="1035"/>
+	<SubTexture name="head_finel_anim0050" x="2245" y="798" width="451" height="342" frameX="-21" frameY="-693" frameWidth="522" frameHeight="1035"/>
+</TextureAtlas>

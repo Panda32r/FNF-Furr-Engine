@@ -1,0 +1,103 @@
+{
+	"animations": [
+		{
+			"offsets": [0, 0],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "IDLE"
+		},
+		{
+			"loop": false,
+			"offsets": [3, -13],
+			"anim": "singDOWN-hold",
+			"fps": 24,
+			"name": "down-hold",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [-53, -13],
+			"anim": "singLEFT-hold",
+			"fps": 24,
+			"name": "right-hold",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [-100, -11],
+			"anim": "singRIGHT-hold",
+			"fps": 24,
+			"name": "left-hold",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [7, 35],
+			"anim": "singUP-hold",
+			"fps": 24,
+			"name": "Up-hold",
+			"indices": []
+		},
+		{
+			"offsets": [3, -13],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "down0"
+		},
+		{
+			"offsets": [-53, -13],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "right0"
+		},
+		{
+			"offsets": [-100, -11],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "left0"
+		},
+		{
+			"offsets": [7, 35],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "Up0"
+		},
+		{
+			"loop": false,
+			"offsets": [5, 0],
+			"anim": "sad",
+			"fps": 24,
+			"name": "sad",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [5, 0],
+			"anim": "heh",
+			"fps": 24,
+			"name": "Heh",
+			"indices": []
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/Lycur",
+	"position": [120, 300],
+	"healthicon": "lycur",
+	"flip_x": false,
+	"healthbar_colors": [140, 140, 140],
+	"camera_position": [0, 0],
+	"sing_duration": 6.1,
+	"scale": 1.1,
+	"_editor_isPlayer": false
+}

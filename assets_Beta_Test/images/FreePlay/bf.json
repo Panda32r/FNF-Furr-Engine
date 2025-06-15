@@ -1,0 +1,39 @@
+{
+	"animations": [
+		{
+			"offsets": [-5, 0],
+			"indices": [],
+			"fps": 24,
+			"anim": "idle",
+			"loop": false,
+			"name": "Boyfriend DJ0"
+		},
+		{
+			"offsets": [38, -24],
+			"indices": [],
+			"fps": 24,
+			"anim": "hey",
+			"loop": false,
+			"name": "Boyfriend DJ confirm"
+		},
+		{
+			"offsets": [-1, 427],
+			"indices": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+			"fps": 24,
+			"anim": "intro",
+			"loop": false,
+			"name": "boyfriend dj intro"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "Boyfriend_Freeplay_assets",
+	"position": [0, 350],
+	"healthicon": "bf",
+	"flip_x": false,
+	"healthbar_colors": [49, 176, 209],
+	"camera_position": [0, 0],
+	"sing_duration": 4,
+	"scale": 1,
+	"_editor_isPlayer": true
+}

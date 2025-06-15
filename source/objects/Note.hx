@@ -138,7 +138,6 @@ class Note extends FlxSprite
                     prevNote.scale.y *=  PlayState.SONG.speed;
                     // prevNote.scale.y *= Conductor.StepBit / 100 * 1.05;
                 }
-                prevNote.noteType = noteType;
             }
             earlyHitMult = 0;
            
@@ -149,6 +148,12 @@ class Note extends FlxSprite
         }
         reloadNotes = true; 
     }
+
+    public function reSize(MyStrum:MyStrumNote) {
+        
+    }
+    public function canBeHitNow():Bool 
+        return !tooLate && !wasGoodHit && !blockHit && mustPress;
 
     override function update(elapsed:Float)
         {

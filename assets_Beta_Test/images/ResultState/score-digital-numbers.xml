@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="score-digital-numbers.png">
+	<SubTexture name="1 DIGITAL0001" x="4" y="4" width="79" height="123" frameX="-15" frameY="-1" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="1 DIGITAL0002" x="4" y="4" width="79" height="123" frameX="-15" frameY="-1" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="1 DIGITAL0003" x="87" y="4" width="67" height="99" frameX="-15" frameY="-13" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="1 DIGITAL0004" x="87" y="4" width="67" height="99" frameX="-15" frameY="-13" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="1 DIGITAL0005" x="158" y="4" width="64" height="93" frameX="-15" frameY="-16" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="2 DIGITAL0001" x="226" y="4" width="94" height="125" frameX="0" frameY="0" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="2 DIGITAL0002" x="226" y="4" width="94" height="125" frameX="0" frameY="0" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="2 DIGITAL0003" x="324" y="4" width="70" height="101" frameX="-12" frameY="-12" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="2 DIGITAL0004" x="324" y="4" width="70" height="101" frameX="-12" frameY="-12" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="2 DIGITAL0005" x="398" y="4" width="64" height="95" frameX="-15" frameY="-15" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="3 DIGITAL0001" x="466" y="4" width="95" height="125"/>
+	<SubTexture name="3 DIGITAL0002" x="466" y="4" width="95" height="125"/>
+	<SubTexture name="3 DIGITAL0003" x="565" y="4" width="71" height="101" frameX="-12" frameY="-12" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="3 DIGITAL0004" x="565" y="4" width="71" height="101" frameX="-12" frameY="-12" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="3 DIGITAL0005" x="640" y="4" width="65" height="95" frameX="-15" frameY="-15" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="4 DIGITAL0001" x="709" y="4" width="94" height="123" frameX="0" frameY="-1" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="4 DIGITAL0002" x="709" y="4" width="94" height="123" frameX="0" frameY="-1" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="4 DIGITAL0003" x="807" y="4" width="70" height="99" frameX="-12" frameY="-13" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="4 DIGITAL0004" x="807" y="4" width="70" height="99" frameX="-12" frameY="-13" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="4 DIGITAL0005" x="881" y="4" width="64" height="93" frameX="-15" frameY="-16" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="5 DIGITAL0001" x="4" y="133" width="94" height="125" frameX="0" frameY="0" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="5 DIGITAL0002" x="4" y="133" width="94" height="125" frameX="0" frameY="0" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="5 DIGITAL0003" x="102" y="133" width="70" height="101" frameX="-12" frameY="-12" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="5 DIGITAL0004" x="102" y="133" width="70" height="101" frameX="-12" frameY="-12" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="5 DIGITAL0005" x="176" y="133" width="64" height="95" frameX="-15" frameY="-15" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="6 DIGITAL0001" x="244" y="133" width="94" height="125" frameX="0" frameY="0" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="6 DIGITAL0002" x="244" y="133" width="94" height="125" frameX="0" frameY="0" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="6 DIGITAL0003" x="342" y="133" width="70" height="101" frameX="-12" frameY="-12" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="6 DIGITAL0004" x="342" y="133" width="70" height="101" frameX="-12" frameY="-12" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="6 DIGITAL0005" x="416" y="133" width="64" height="95" frameX="-15" frameY="-15" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="7 DIGITAL0001" x="484" y="133" width="94" height="124" frameX="0" frameY="0" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="7 DIGITAL0002" x="484" y="133" width="94" height="124" frameX="0" frameY="0" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="7 DIGITAL0003" x="582" y="133" width="70" height="100" frameX="-12" frameY="-12" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="7 DIGITAL0004" x="582" y="133" width="70" height="100" frameX="-12" frameY="-12" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="7 DIGITAL0005" x="656" y="133" width="64" height="94" frameX="-15" frameY="-15" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="8 DIGITAL0001" x="724" y="133" width="94" height="125" frameX="0" frameY="0" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="8 DIGITAL0002" x="724" y="133" width="94" height="125" frameX="0" frameY="0" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="8 DIGITAL0003" x="822" y="133" width="70" height="101" frameX="-12" frameY="-12" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="8 DIGITAL0004" x="822" y="133" width="70" height="101" frameX="-12" frameY="-12" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="8 DIGITAL0005" x="896" y="133" width="64" height="95" frameX="-15" frameY="-15" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="9 DIGITAL0001" x="4" y="262" width="94" height="124" frameX="0" frameY="-1" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="9 DIGITAL0002" x="4" y="262" width="94" height="124" frameX="0" frameY="-1" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="9 DIGITAL0003" x="102" y="262" width="70" height="100" frameX="-12" frameY="-13" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="9 DIGITAL0004" x="102" y="262" width="70" height="100" frameX="-12" frameY="-13" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="9 DIGITAL0005" x="176" y="262" width="64" height="94" frameX="-15" frameY="-16" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="0 DIGITAL0001" x="244" y="262" width="94" height="124" frameX="0" frameY="-1" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="0 DIGITAL0002" x="244" y="262" width="94" height="124" frameX="0" frameY="-1" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="0 DIGITAL0003" x="342" y="262" width="70" height="100" frameX="-12" frameY="-13" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="0 DIGITAL0004" x="342" y="262" width="70" height="100" frameX="-12" frameY="-13" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="0 DIGITAL0005" x="416" y="262" width="64" height="94" frameX="-15" frameY="-16" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="DISABLED0001" x="484" y="262" width="60" height="89" frameX="-15" frameY="-16" frameWidth="95" frameHeight="125"/>
+	<SubTexture name="GONE0001" x="580" y="262" width="60" height="89" frameX="-15" frameY="-16" frameWidth="95" frameHeight="125"/>
+</TextureAtlas>

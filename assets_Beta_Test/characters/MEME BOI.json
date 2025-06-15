@@ -1,0 +1,100 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 14,
+			"name": "I",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "singLEFT",
+			"fps": 14,
+			"name": "L",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				150,
+				0
+			],
+			"anim": "singDOWN",
+			"fps": 14,
+			"name": "D",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				100,
+				0
+			],
+			"anim": "singUP",
+			"fps": 14,
+			"name": "U",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-100,
+				0
+			],
+			"anim": "singRIGHT",
+			"fps": 12,
+			"name": "R",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "pussy cat lol",
+			"fps": 12,
+			"name": "A",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "dead",
+			"fps": 1,
+			"name": "B",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/MEME MOUSE",
+	"position": [
+		40,
+		220
+	],
+	"healthicon": "meme-boi",
+	"flip_x": false,
+	"healthbar_colors": [
+		211,
+		137,
+		0
+	],
+	"camera_position": [
+		-450,
+		-80
+	],
+	"sing_duration": 6.1,
+	"scale": 2.2
+}

@@ -1,0 +1,87 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [-20, 0],
+			"anim": "idle",
+			"fps": 24,
+			"name": "IDLE",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [-47, -8],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "down0",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [-93, 55],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Up0",
+			"indices": []
+		},
+		{
+			"offsets": [34, -13],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "left0"
+		},
+		{
+			"offsets": [-56, -11],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "right0"
+		},
+		{
+			"loop": false,
+			"offsets": [-47, -8],
+			"anim": "singDOWNmiss",
+			"fps": 24,
+			"name": "MISSdown0",
+			"indices": []
+		},
+		{
+			"offsets": [-21, 44],
+			"indices": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 14],
+			"fps": 24,
+			"anim": "singUPmiss",
+			"loop": false,
+			"name": "MISSUp0"
+		},
+		{
+			"offsets": [34, -13],
+			"indices": [],
+			"fps": 24,
+			"anim": "singLEFTmiss",
+			"loop": false,
+			"name": "MISSleft0"
+		},
+		{
+			"offsets": [-56, -11],
+			"indices": [],
+			"fps": 24,
+			"anim": "singRIGHTmiss",
+			"loop": false,
+			"name": "MISSright0"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/Lycur-joda",
+	"position": [120, 300],
+	"healthicon": "lycur",
+	"flip_x": false,
+	"healthbar_colors": [140, 140, 140],
+	"camera_position": [100, 0],
+	"sing_duration": 6.1,
+	"scale": 1.1,
+	"_editor_isPlayer": true
+}

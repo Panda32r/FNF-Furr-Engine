@@ -1,0 +1,55 @@
+{
+	"animations": [
+		{
+			"offsets": [0, 0],
+			"loop": false,
+			"fps": 12,
+			"anim": "idle",
+			"indices": [],
+			"name": "PixelSONIC Idle0"
+		},
+		{
+			"offsets": [0, 1],
+			"loop": false,
+			"fps": 12,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "PixelSONIC Left0"
+		},
+		{
+			"offsets": [-10, 0],
+			"loop": false,
+			"fps": 12,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "PixelSONIC Down0"
+		},
+		{
+			"offsets": [-60, 0],
+			"loop": false,
+			"fps": 12,
+			"anim": "singUP",
+			"indices": [],
+			"name": "PixelSONIC Up0"
+		},
+		{
+			"offsets": [-10, 0],
+			"loop": false,
+			"fps": 12,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "PixelSONIC Right0"
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": true,
+	"image": "characters/sonic_exe/PixelSONIC",
+	"position": [610, 670],
+	"healthicon": "Ycrpixel",
+	"flip_x": false,
+	"healthbar_colors": [64, 64, 160],
+	"camera_position": [-420, -80],
+	"sing_duration": 6.1,
+	"scale": 2,
+	"_editor_isPlayer": false
+}

@@ -1,0 +1,89 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				1
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "Matt ChillIdle"
+		},
+		{
+			"offsets": [
+				-79,
+				-24
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "Matt ChillLeft"
+		},
+		{
+			"offsets": [
+				22,
+				-28
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "Matt ChillRight"
+		},
+		{
+			"offsets": [
+				19,
+				-29
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Matt ChillDown"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-11,
+				10
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "Matt ChillUp",
+			"indices": []
+		},
+		{
+			"offsets": [
+				0,
+				7
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "Snap",
+			"indices": [],
+			"name": "Matt ChillSnap"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/matt_tko",
+	"position": [
+		0,
+		280
+	],
+	"healthicon": "matt",
+	"flip_x": false,
+	"healthbar_colors": [
+		255,
+		140,
+		0
+	],
+	"camera_position": [
+		0,
+		30
+	],
+	"sing_duration": 6.1,
+	"scale": 1.1
+}

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Logo_Furr.png">
+	<!-- Created with Adobe Animate version 21.0.9.42677 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="text_tween20000" x="0" y="0" width="584" height="203" frameX="0" frameY="0" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20001" x="0" y="0" width="584" height="203" frameX="0" frameY="0" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20002" x="0" y="0" width="584" height="203" frameX="0" frameY="0" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20003" x="0" y="0" width="584" height="203" frameX="0" frameY="0" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20004" x="0" y="0" width="584" height="203" frameX="0" frameY="0" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20005" x="584" y="0" width="429" height="250" frameX="-77" frameY="-253" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20006" x="0" y="250" width="413" height="263" frameX="-85" frameY="-324" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20007" x="413" y="250" width="391" height="287" frameX="-92" frameY="-392" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20008" x="0" y="537" width="417" height="214" frameX="-79" frameY="-531" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20009" x="417" y="537" width="531" height="156" frameX="-8" frameY="-636" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20010" x="0" y="751" width="505" height="187" frameX="-21" frameY="-606" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20011" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20012" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20013" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20014" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20015" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20016" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20017" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20018" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20019" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20020" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20021" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20022" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20023" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20024" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20025" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20026" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20027" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20028" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20029" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20030" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20031" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20032" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20033" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20034" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20035" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20036" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20037" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20038" x="505" y="751" width="485" height="204" frameX="-31" frameY="-589" frameWidth="589" frameHeight="793"/>
+	<SubTexture name="text_tween20039" x="0" y="0" width="584" height="203" frameX="-5" frameY="-502" frameWidth="589" frameHeight="793"/>
+</TextureAtlas>

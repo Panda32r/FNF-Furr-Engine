@@ -1,0 +1,25 @@
+{
+	"animations": [
+		{
+			"offsets": [-5, 0],
+			"indices": [],
+			"fps": 24,
+			"anim": "idle",
+			"loop": false,
+			"name": "idle"
+		},
+		{
+			"offsets": [-5, 1],
+			"indices": [],
+			"fps": 24,
+			"anim": "hey",
+			"loop": false,
+			"name": "confirm"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "bf",
+	"position": [0, 0],
+	"flip_x": true,
+	"scale": 1
+}

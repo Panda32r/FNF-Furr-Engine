@@ -1,0 +1,17 @@
+{
+"event":
+    [
+        {
+            "step": 748,
+            "eventName":"PlayAnimate",
+            "value1": "dad",
+            "value2": "angry"
+        },
+        {
+            "step": 766,
+            "eventName":"charactersChange",
+            "value1": "dad",
+            "value2": "mouse angry 2"
+        }
+    ]
+}
