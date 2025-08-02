@@ -1,51 +1,50 @@
 package objects;
 
-// import openfl.filters.BlurFilter;
-
-import flixel.graphics.FlxGraphic;
-import flixel.math.FlxRect;
+// import openfl.filters.AtlasBlurShader;
 
 class Note extends FlxSprite
 {
-    public var blockHit:Bool = false;
+    public var blockHit:Bool            = false;
     
-    public var imgpng:String;
-    public var imgxml:String;
+    public var imgpng:FlxGraphic        = null;
+    public var imgxml:String            = null;
 
-    public var textyre:String;
-    public var tex:FlxAtlasFrames;
+    public var textyre:String           = null;
+    public var tex:FlxAtlasFrames       = null;
     
-    public var strumTime:Float = 0;
+    public var strumTime:Float          = 0;
 
-	public var mustPress:Bool = false;
-	public var noteData:Int = 0;
-	public var canBeHit:Bool = false;
-	public var tooLate:Bool = false;
-	public var wasGoodHit:Bool = false;
-    public var missNote: Bool = false;
-    public var badHit:Bool = false;
-	public var prevNote:Note;
-    public var nextNote:Note;
+	public var mustPress:Bool           = false;
+	public var noteData:Int             = 0;
+	public var canBeHit:Bool            = false;
+	public var tooLate:Bool             = false;
+	public var wasGoodHit:Bool          = false;
+    public var missNote: Bool           = false;
+    public var badHit:Bool              = false;
+	public var prevNote:Note            = null;
+    public var nextNote:Note            = null;
 
-	public var sustainLength:Float = 0;
-	public var isSustainNote:Bool = false;
+	public var sustainLength:Float      = 0;
+	public var isSustainNote:Bool       = false;
 
-	public var noteScore:Float = 1;
+	public var noteScore:Float          = 1;
 
-    public var offsetX:Float = 0;
-	public var offsetY:Float = 0;
+    public var offsetX:Float            = 0;
+	public var offsetY:Float            = 0;
 
-	public static var swagWidth:Float = 115;
+	public static var swagWidth:Float   = 115;
 
-    public var lowPriority:Bool = false;
-    public var lateHitMult:Float = 1;
-    public var earlyHitMult:Float = 1;
+    public var lowPriority:Bool         = false;
+    public var lateHitMult:Float        = 1;
+    public var earlyHitMult:Float       = 1;
 
-    private var reloadNotes:Bool = false;
+    private var reloadNotes:Bool        = false;
 
-    public var noteType:String;
+    public var noteType:String          = null;
 
-    public var ignoreNote:Bool = false;
+    public var ignoreNote:Bool          = false;
+
+    public var AltAlpha:Float           = 1;
     
     public function new( strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, img:String = 'NOTE_assets') 
     {
@@ -72,37 +71,39 @@ class Note extends FlxSprite
         if (noteType == 'Phantom Note')
         {
             ignoreNote = true;
-            alpha = 0.3;
+            AltAlpha = 0.3;
 
             textyre = 'HURTNOTE_assets';
         }
-        // imgpng = BitmapData.fromFile('assets/images/' + textyre + '.png');
-        // imgxml = File.getContent('assets/images/' + textyre + '.xml');
 
-        imgpng = 'assets/images/' + textyre + '.png';
-        imgxml = 'assets/images/' + textyre + '.xml';
+        imgpng = Img.load(textyre);
+        imgxml = File.getContent('assets/images/' + textyre + '.xml');
 
         tex = FlxAtlasFrames.fromSparrow(imgpng,imgxml);
         frames = tex;
 
         
         animation.addByPrefix('greenScroll', 'green0');
-		animation.addByPrefix('redScroll', 'red0');
-		animation.addByPrefix('blueScroll', 'blue0');
-		animation.addByPrefix('purpleScroll', 'purple0');
-
-		animation.addByPrefix('purpleholdend', 'pruple hold end0');
 		animation.addByPrefix('greenholdend', 'green hold end0');
-		animation.addByPrefix('redholdend', 'red hold end0');
-		animation.addByPrefix('blueholdend', 'blue hold end0');
-
-		animation.addByPrefix('purplehold', 'purple hold piece');
 		animation.addByPrefix('greenhold', 'green hold piece');
+
+
+		animation.addByPrefix('redScroll', 'red0');
+		animation.addByPrefix('redholdend', 'red hold end0');
 		animation.addByPrefix('redhold', 'red hold piece');
+
+
+		animation.addByPrefix('blueScroll', 'blue0');
+		animation.addByPrefix('blueholdend', 'blue hold end0');
 		animation.addByPrefix('bluehold', 'blue hold piece');
+
+
+		animation.addByPrefix('purpleScroll', 'purple0');
+		animation.addByPrefix('purpleholdend', 'pruple hold end0');
+		animation.addByPrefix('purplehold', 'purple hold piece');
         
+
         updateHitbox();
-        antialiasing = true;
         if(!reloadNotes)
             setGraphicSize(Std.int(width * 0.7));
 
@@ -147,43 +148,55 @@ class Note extends FlxSprite
             updateHitbox();
         }
         reloadNotes = true; 
+        antialiasing = ClientSetings.data.antialiasing;
     }
 
-    public function reSize(MyStrum:MyStrumNote) {
-        
+    public function reSize(size:Float) {
+        if(isSustainNote && animation.curAnim != null && !animation.curAnim.name.endsWith('end'))
+		{
+			scale.y *= size;
+			updateHitbox();
+		}
     }
+
     public function canBeHitNow():Bool 
         return !tooLate && !wasGoodHit && !blockHit && mustPress;
 
+    public function delNote():Void
+    {
+        kill();
+	    destroy();
+    }
+
     override function update(elapsed:Float)
-        {
-            super.update(elapsed);
+    {
+        super.update(elapsed);
+
+        if (mustPress)
+            {
+
+                canBeHit = (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * lateHitMult) &&
+                            strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult));   
+
+                if (strumTime < Conductor.songPosition - Conductor.safeZoneOffset && !wasGoodHit)
+                    tooLate = true;
+            }
+            else
+            {
+                canBeHit = false;
     
-            if (mustPress)
-                {
-
-                    canBeHit = (strumTime > Conductor.songPosition - (Conductor.safeZoneOffset * lateHitMult) &&
-						        strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult));   
-
-                    if (strumTime < Conductor.songPosition - Conductor.safeZoneOffset && !wasGoodHit)
-				        tooLate = true;
-                }
-                else
-                {
-                    canBeHit = false;
-        
-                    if (!wasGoodHit && strumTime <= Conductor.songPosition)
-                        {
-                            if(!isSustainNote || prevNote.wasGoodHit )
-                                wasGoodHit = true;
-                        }
-                }
-        
-                if (tooLate)
-                {
-                    if (alpha > 0.2)
-                        alpha = 0.2;
+                if (!wasGoodHit && strumTime <= Conductor.songPosition)
+                    {
+                        if(!isSustainNote || prevNote.wasGoodHit )
+                            wasGoodHit = true;
+                    }
+            }
+    
+            if (tooLate)
+            {
+                if (alpha > 0.2)
                     alpha = 0.2;
-                }
-        }
+                alpha = 0.2;
+            }
+    }
 }

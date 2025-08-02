@@ -1,37 +1,39 @@
 package states;
 
+import backend.SwitshState;
 import flixel.FlxState;
 import flixel.FlxObject;
-import flixel.addons.transition.FlxTransitionableState;
 
 class LogoState extends FlxState
 {
- private var head:FlxSprite;
- private var text1:FlxSprite;
- private var text2:FlxSprite;
+    private var head:FlxSprite          = null;
+    private var text1:FlxSprite         = null;
+    private var text2:FlxSprite         = null;
 
- private var camFollow:FlxObject;
+    private var _camFollow:FlxObject    = null;
 
- private var camOther:FlxCamera;
+    private var _camOther:FlxCamera     = null;
 
     override public function create():Void
 	{
         super.create();
         ClientSetings.loadPrefs();
+        // persistentUpdate = true;
+		// persistentDraw = true;
 
-        camOther = new FlxCamera();
-        camOther.bgColor = FlxColor.BLACK;
-        FlxG.cameras.reset(camOther);
-        camOther.zoom = 1;
+        _camOther = new FlxCamera();
+        _camOther.bgColor = FlxColor.BLACK;
+        FlxG.cameras.reset(_camOther);
+        _camOther.zoom = 1;
 
         if(!ClientSetings.data.skipLogoEngine)
         {
-            camFollow = new FlxObject(0, 0);
+            _camFollow = new FlxObject(0, 0);
 
-            camFollow.setPosition(FlxG.width/2, FlxG.height/2);
-            add(camFollow);
+            _camFollow.setPosition(FlxG.width/2, FlxG.height/2);
+            add(_camFollow);
 
-            FlxG.camera.follow(camFollow, LOCKON, 0.04);
+            FlxG.camera.follow(_camFollow, LOCKON, 0.04);
 
             var cadrs = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38];
             head = new FlxSprite(-0,-550);
@@ -40,6 +42,8 @@ class LogoState extends FlxState
             head.animation.addByIndices('LogoBoop', 'head_finel_anim0', cadrs, "", 24, false);
             // head.animation.addByPrefix('LogoBoop', 'head_finel_anim0');
             head.animation.play('LogoBoop');
+            head.antialiasing = ClientSetings.data.antialiasing;
+
             add(head);
 
             text1 = new FlxSprite(620,-450);
@@ -48,6 +52,8 @@ class LogoState extends FlxState
             text1.animation.addByIndices('LogoBoop', 'text_tween20', cadrs, "", 24, false);
             // text1.animation.addByPrefix('LogoBoop', 'text_tween20');
             text1.animation.play('LogoBoop');
+            text1.antialiasing = ClientSetings.data.antialiasing;
+
             add(text1);
 
             text2 = new FlxSprite(530,200);
@@ -56,6 +62,8 @@ class LogoState extends FlxState
             text2.animation.addByIndices('LogoBoop', 'Text_tween10', cadrs, "", 24, false);
             // text2.animation.addByPrefix('LogoBoop', 'Text_tween10');
             text2.animation.play('LogoBoop');
+            text2.antialiasing = ClientSetings.data.antialiasing;
+
             add(text2);
         }
         else
@@ -72,47 +80,15 @@ class LogoState extends FlxState
             if (head.animation.curAnim.finished)
             {
                 movetCam();
-                if (camOther.zoom >= 0.5)
-                    camOther.zoom -= 0.015;
-                switchState(new TitleState());
+                if (_camOther.zoom >= 0.5)
+                    _camOther.zoom -= 0.015;
+                SwitshState.switchState(new TitleState());
             }
 
     }
 
     function movetCam()
     {
-        camFollow.setPosition(FlxG.width/2, -1000);	
+        _camFollow.setPosition(FlxG.width/2, -1000);	
     }
-
-    public static function switchState(nextState:FlxState = null) 
-        {
-            if(nextState == null) nextState = FlxG.state;
-            if(nextState == FlxG.state)
-            {
-                resetState();
-                return;
-            }
-    
-            if(FlxTransitionableState.skipNextTransIn) FlxG.switchState(nextState);
-            else startTransition(nextState);
-            FlxTransitionableState.skipNextTransIn = false;
-        }
-    
-        public static function resetState() 
-        {
-            if(FlxTransitionableState.skipNextTransIn) FlxG.resetState();
-            else startTransition();
-            FlxTransitionableState.skipNextTransIn = false;
-        }
-        public static function startTransition(nextState:FlxState = null)
-        {
-            if(nextState == null)
-                nextState = FlxG.state;
-    
-            FlxG.state.openSubState(new CustomFadeTransition(0.5, false));
-            if(nextState == FlxG.state)
-                CustomFadeTransition.finishCallback = function() FlxG.resetState();
-            else
-                CustomFadeTransition.finishCallback = function() FlxG.switchState(nextState);
-        }
 }

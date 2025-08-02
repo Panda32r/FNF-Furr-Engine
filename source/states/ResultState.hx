@@ -1,5 +1,9 @@
 package states;
 
+import flixel.addons.display.FlxBackdrop;
+import data.DataSongs;
+import haxe.Json;
+import data.DataSave;
 import charectors.CharectorsWinState;
 import flixel.text.FlxBitmapText;
 import flixel.text.FlxBitmapFont;
@@ -9,61 +13,98 @@ import openfl.media.Sound;
 
 class ResultState extends MusicBeatState
 {
-    public static var Sick:Int = 0;
-    public static var Good:Int = 0;
-    public static var Bad:Int = 0;
-    public static var Shit:Int = 0;
-    public static var Score:Int = 0;
-    private var scoreUp:Int = 0;
-    public static var Miss:Int = 0;
-    public static var MaxCombo:Int = 0;
-    public static var rating:FlxText;
-    public static var ratingText:Array<String> = ['P', 'S' , 'G', 'B'];
-    public static var ratingComboText:Array<String> = ['PFC', 'SFC' , 'GFC', 'FC', 'SDCB', 'Clear'];
+    public static var Sick:Int                      = 0;
+    public static var Good:Int                      = 0;
+    public static var Bad:Int                       = 0;
+    public static var Shit:Int                      = 0;
+    public static var Score:Int                     = 0;
 
-    public var camGame:FlxCamera;
-	public var camHUD:FlxCamera;
+    private var _scoreUp:Int                        = 0;
+
+    public static var Miss:Int                      = 0;
+    public static var MaxCombo:Int                  = 0;
+
+    public static var rating:FlxText                = null;
+
+    public static var ratingText:Array<String>      = ['P', 'E' , 'G', 'L'];
+    public static var ratingComboText:Array<String> = ['PFC', 'SFC' , 'GFC', 'BFC', 'FC', 'SDCB', 'Clear'];
+
+    public var camBG:FlxCamera                      = null;
+    public var camScroll:FlxCamera                  = null;
+    public var camGame:FlxCamera                    = null;
+	public var camHUD:FlxCamera                     = null;
+
+    private static final _CAM_ANGLE                 = -3.5;
+
+    var rankScroll:FlxBackdrop                      = null;
+    var rankScrollBack:FlxBackdrop                  = null;
+    var rankScrollUp:FlxBackdrop;
+
+    var curScoreTxt:FlxText                         = null;
+    var HitTxt:FlxBitmapText                        = null;
+    var MaxComboTxt:FlxBitmapText                   = null;
+    var MissTxt:FlxBitmapText                       = null;
+    var curSickTxt:FlxBitmapText                    = null;
+    var curGoodTxt:FlxBitmapText                    = null;
+    var curBadTxt:FlxBitmapText                     = null;
+    var curShitTxt:FlxBitmapText                    = null;
+    var scoreSpr:FlxSprite                          = null;
+    var scoreSprGroup:FlxTypedGroup<FlxSprite>      = new FlxTypedGroup<FlxSprite>();
+    var scoreSprArray:Array<FlxSprite>              = [];
 
 
-    var curScoreTxt:FlxText;
-    var HitTxt:FlxBitmapText;
-    var MaxComboTxt:FlxBitmapText;
-    var MissTxt:FlxBitmapText;
-    var curSickTxt:FlxBitmapText;
-    var curGoodTxt:FlxBitmapText;
-    var curBadTxt:FlxBitmapText;
-    var curShitTxt:FlxBitmapText;
-    var scoreSpr:FlxSprite;
-    var scoreSprGroup:FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
-    var scoreSprArray:Array<FlxSprite> = [];
+    public static var hits:Int                      = 0;
+    public static var priceHits:Float               = 0;
+    var retingPercent:Float                         = 0.0;
+    var precentTextSpr:FlxSprite                    = null;
+    var precentNumText:FlxBitmapText                = null;
 
 
-    public static var hits:Int = 0;
-    public static var priceHits:Float = 0;
-    var retingPercent:Float = 0.0;
-    var precentTextSpr:FlxSprite;
-    var precentNumText:FlxBitmapText;
+    var soundSystemSpr:FlxSprite                    = null;
+    var ratingsSpr:FlxSprite                        = null;
 
 
-    var soundSystemSpr:FlxSprite;
-    var ratingsSpr:FlxSprite;
+    var charectorsAtlas:CharectorsWinState          = null;
+    var charectors2Atlas:CharectorsWinState         = null;
 
+    var songIntro:FlxSound                          = null;
+    var song:FlxSound                               = null;
 
-    var charectorsAtlas:CharectorsWinState = null;
-    var charectors2Atlas:CharectorsWinState = null;
+    private static var _FullData:DataSave           = null;
 
-    var songIntro:FlxSound = null;
-    var song:FlxSound = null;
+    public static var score:Map<String, Array<Dynamic>> 
 
+                                                    = new Map<String, Array<Dynamic>>();
+    public static var listTrek:Array<String>        = [];
+
+    var FlashPlay:Bool                              = false;
     override public function create():Void
     {
+
+        var data = File.getContent("data.json");
+        _FullData = Json.parse(data);
+
+        trace(score);
         super.create();
 
+        Img.clearCache();
+        
 		retingPercent = Math.min(1, Math.max(0, priceHits / hits));
+        camBG = new FlxCamera();
+		camBG.bgColor = FlxColor.fromString('0xEEBC58');
+		FlxG.cameras.reset(camBG);
+		camBG.zoom = 1;
+
+        camScroll = new FlxCamera();
+        camScroll.angle = _CAM_ANGLE;
+        camScroll.height += 50;
+		camScroll.bgColor = FlxColor.TRANSPARENT; 
+		FlxG.cameras.add(camScroll);
+		camScroll.zoom = 1;
 
         camGame = new FlxCamera();
-		camGame.bgColor = FlxColor.fromString('#FFD863');
-		FlxG.cameras.reset(camGame);
+		camGame.bgColor = FlxColor.TRANSPARENT; 
+		FlxG.cameras.add(camGame);
 		camGame.zoom = 1;
 
 		camHUD = new FlxCamera();
@@ -75,7 +116,22 @@ class ResultState extends MusicBeatState
         FlxG.cameras.add(camHUD);
 
         #if !neko
-        if(retingPercent * 100 > 91)
+        if(retingPercent * 100 > 95.5 && Bad == 0 && Shit == 0 && Miss == 0)
+        {        
+            charectorsAtlas = new CharectorsWinState(1342, 370, 'bf', 'PERFECT', 'bed');
+            charectorsAtlas.cameras = [camGame];
+            charectorsAtlas.visible = false;
+            add(charectorsAtlas);
+
+            charectorsAtlas.anim.onComplete.add(() -> {charectorsAtlas.anim.play(null, true, false, 137);});
+
+            FlashPlay = true;
+
+            rankScroll = new FlxBackdrop(Img.load('ResultState/rankText/rankScrollPERFECT'), XY, 20, 90);
+            rankScrollBack = new FlxBackdrop(Img.load('ResultState/rankText/rankScrollPERFECT'), XY, 20, 90);
+            rankScrollUp = new FlxBackdrop(Img.load('ResultState/rankText/rankTextPERFECT'), Y, 0, 40);
+        }
+        if(retingPercent * 100 > 91 && !FlashPlay)
         {        
             charectorsAtlas = new CharectorsWinState(1329, 429, 'bf', 'EXCELLENT');
             charectorsAtlas.cameras = [camGame];
@@ -84,12 +140,16 @@ class ResultState extends MusicBeatState
             charectorsAtlas.anim.onComplete.add(() -> {charectorsAtlas.anim.play(null, true, false, 29);});
 
             songIntro = new FlxSound().loadEmbedded(Sound.fromFile('assets/music/resultsEXCELLENT/resultsEXCELLENT-intro.ogg'));
-            song = new FlxSound().loadEmbedded(Sound.fromFile('assets/music/resultsEXCELLENT/resultsEXCELLENT.ogg'));
             FlxG.sound.list.add(songIntro);
-			FlxG.sound.list.add(song);
 
             songIntro.play();
-            songIntro.onComplete = function(){song.play(true);};
+            songIntro.onComplete = function(){FlxG.sound.playMusic(Sound.fromFile('assets/music/resultsEXCELLENT/resultsEXCELLENT.ogg'));};
+
+            rankScroll = new FlxBackdrop(Img.load('ResultState/rankText/rankScrollEXCELLENT'), XY, 20, 90);
+            rankScrollBack = new FlxBackdrop(Img.load('ResultState/rankText/rankScrollEXCELLENT'), XY, 20, 90);
+            rankScrollUp = new FlxBackdrop(Img.load('ResultState/rankText/rankTextEXCELLENT'), Y, 0, 40);
+
+
         }
         if(retingPercent * 100 > 81 && retingPercent * 100 < 92)
         {
@@ -103,18 +163,76 @@ class ResultState extends MusicBeatState
             charectors2Atlas.visible = false;
             charectors2Atlas.anim.onComplete.add(() -> {charectors2Atlas.anim.play(null, true, false, 9);});
         
-            song = new FlxSound().loadEmbedded(Sound.fromFile('assets/music/resultsNORMAL/resultsNORMAL.ogg'));
-            FlxG.sound.list.add(song);
-
-            song.play(true);
-            // song.onComplete = function(){song.play();};
+            FlxG.sound.playMusic(Sound.fromFile('assets/music/resultsNORMAL/resultsNORMAL.ogg'));
 
             add(charectors2Atlas);
             add(charectorsAtlas);
+
+            rankScroll = new FlxBackdrop(Img.load('ResultState/rankText/rankScrollGREAT'), XY, 20, 90);
+            rankScrollBack = new FlxBackdrop(Img.load('ResultState/rankText/rankScrollGREAT'), XY, 20, 90);
+            rankScrollUp = new FlxBackdrop(Img.load('ResultState/rankText/rankTextGREAT'), Y, 0, 40);
             
+        }
+        if(retingPercent * 100 > 62 && retingPercent * 100 < 82)
+        {
+            charectorsAtlas = new CharectorsWinState(662, 371, 'bf', 'GOOD','bf');
+            charectorsAtlas.cameras = [camGame];
+            charectorsAtlas.visible = false;
+            charectorsAtlas.anim.onComplete.add(() -> {charectorsAtlas.anim.play(null, true, false, 14);});
+
+            // charectors2Atlas = new CharectorsWinState(802, 331, 'bf', 'GREAT','gf');
+            // charectors2Atlas.cameras = [camGame];
+            // charectors2Atlas.visible = false;
+            // charectors2Atlas.anim.onComplete.add(() -> {charectors2Atlas.anim.play(null, true, false, 9);});
+        
+            FlxG.sound.playMusic(Sound.fromFile('assets/music/resultsNORMAL/resultsNORMAL.ogg'));
+
+            // add(charectors2Atlas);
+            add(charectorsAtlas);
+            
+            rankScroll = new FlxBackdrop(Img.load('ResultState/rankText/rankScrollGOOD'), XY, 20, 90);
+            rankScrollBack = new FlxBackdrop(Img.load('ResultState/rankText/rankScrollGOOD'), XY, 20, 90);
+            rankScrollUp = new FlxBackdrop(Img.load('ResultState/rankText/rankTextGOOD'), Y, 0, 40);
+
+        }
+        if(retingPercent * 100 < 62)
+        {
+            charectorsAtlas = new CharectorsWinState(0, 20, 'bf', 'SHIT');
+            charectorsAtlas.cameras = [camGame];
+            charectorsAtlas.visible = false;
+            charectorsAtlas.anim.onComplete.add(() -> {charectorsAtlas.anim.goToFrameLabel("Loop Start");});
+
+            // charectors2Atlas = new CharectorsWinState(802, 331, 'bf', 'GREAT','gf');
+            // charectors2Atlas.cameras = [camGame];
+            // charectors2Atlas.visible = false;
+            // charectors2Atlas.anim.onComplete.add(() -> {charectors2Atlas.anim.play(null, true, false, 9);});
+        
+            FlxG.sound.playMusic(Sound.fromFile('assets/music/resultsSHIT/resultsSHIT.ogg'));
+
+            // add(charectors2Atlas);
+            add(charectorsAtlas);
+            
+            rankScroll = new FlxBackdrop(Img.load('ResultState/rankText/rankScrollLOSS'), XY, 20, 90);
+            rankScrollBack = new FlxBackdrop(Img.load('ResultState/rankText/rankScrollLOSS'), XY, 20, 90);
+            rankScrollUp = new FlxBackdrop(Img.load('ResultState/rankText/rankTextLOSS'), Y, 0, 40);
+
         }
         #end
        
+        rankScroll.visible = false;
+		rankScroll.cameras = [camScroll];
+		rankScroll.y = -10;
+		add(rankScroll);
+
+        rankScrollBack.visible = false;
+		rankScrollBack.cameras = [camScroll];
+		rankScrollBack.y = 60;
+		add(rankScrollBack);
+
+        rankScrollUp.visible = false;
+		rankScrollUp.cameras = [camHUD];
+		rankScrollUp.x = FlxG.width - rankScrollUp.width;
+		add(rankScrollUp);
 
         var texNumber:FlxBitmapFont = FlxBitmapFont.fromAngelCode('assets/images/ResultState/tallieNumber_0.png', 'assets/images/ResultState/tallieNumber.fnt');
         
@@ -135,6 +253,7 @@ class ResultState extends MusicBeatState
 		MaxComboTxt.cameras = [camHUD];
 
         MissTxt = new FlxBitmapText(texNumber);
+        MissTxt.color =  0xA244D5;
         MissTxt.x = 220;
         MissTxt.y = 486;
         MissTxt.scrollFactor.set();
@@ -143,6 +262,7 @@ class ResultState extends MusicBeatState
         
 
         curSickTxt = new FlxBitmapText(texNumber);
+        curSickTxt.color =  0x2DE356;
         curSickTxt.x = 222;
         curSickTxt.y = 262;
         curSickTxt.scrollFactor.set();
@@ -150,6 +270,7 @@ class ResultState extends MusicBeatState
 		curSickTxt.cameras = [camHUD];
 
         curGoodTxt = new FlxBitmapText(texNumber);
+        curGoodTxt.color = 0x25B5EB;
         curGoodTxt.x = 186;
         curGoodTxt.y = 312;
         curGoodTxt.scrollFactor.set();
@@ -158,6 +279,7 @@ class ResultState extends MusicBeatState
         
 
         curBadTxt = new FlxBitmapText(texNumber);
+        curBadTxt.color =  0xE6B72B;
         curBadTxt.x = 144;
         curBadTxt.y = 376;
         curBadTxt.scrollFactor.set();
@@ -165,6 +287,7 @@ class ResultState extends MusicBeatState
 		curBadTxt.cameras = [camHUD];
 
         curShitTxt = new FlxBitmapText(texNumber);
+        curShitTxt.color = 0xDC3834;
         curShitTxt.x = 174;
         curShitTxt.y = 434;
         curShitTxt.scrollFactor.set();
@@ -267,7 +390,7 @@ class ResultState extends MusicBeatState
             add(precentTextSpr);
 
         var daLoop:Int = 0;
-        var separatedScore:String = Std.string(scoreUp).lpad('0', 10);
+        var separatedScore:String = Std.string(_scoreUp).lpad('0', 10);
 		for (i in 0...separatedScore.length)
 		{
 			var numScore:FlxSprite = new FlxSprite();
@@ -320,20 +443,27 @@ class ResultState extends MusicBeatState
 
     }
 
-    var pressEnter:Bool = false;
-    var shot:Float = 0;
-    var fullHit:Bool = false;
-    var fullScore:Bool = false;
-    var fullScoreEnd:Bool = false;
-    var fullHitEnd:Bool = false;
-    var fullShit:Bool = false;
-    var playAnimRatings:Bool = false;
-    var playAnimRatings2:Bool = false;
-    var playAnimRatings3:Bool = false;
-    var alphaPrs:Bool = false;
-    var white:FlxSprite;
+    var pressEnter:Bool                             = false;
+    var shot:Float                                  = 0;
+    var fullHit:Bool                                = false;
+    var fullScore:Bool                              = false;
+    var fullScoreEnd:Bool                           = false;
+    var fullHitEnd:Bool                             = false;
+    var fullShit:Bool                               = false;
+    var playAnimRatings:Bool                        = false;
+    var playAnimRatings2:Bool                       = false;
+    var playAnimRatings3:Bool                       = false;
+    var alphaPrs:Bool                               = false;
+    var white:FlxSprite                             = null;
+
+    public static function addScore(obj:Map<String, Array<Dynamic>>, name:String, data:Array<Dynamic>) {
+        obj[name] = data;
+    }
     override public function update(elapsed:Float)
     {
+
+        super.update(elapsed);
+
         if(soundSystemSpr.animation.finished && !playAnimRatings)
         { 
             ratingsSpr.visible = true;
@@ -346,7 +476,7 @@ class ResultState extends MusicBeatState
             scoreSpr.animation.play('idle');
             playAnimRatings2 = true;
             precentTextSpr.visible = true;
-            var separatedScore:String = Std.string(scoreUp).lpad('0', 10);
+            var separatedScore:String = Std.string(_scoreUp).lpad('0', 10);
             for (i in 0...separatedScore.length)
 		    {
                 scoreSprArray[i].visible = true;
@@ -436,6 +566,13 @@ class ResultState extends MusicBeatState
 
             
             white.alpha = 1;
+
+            rankScroll.visible = true;
+            rankScrollBack.visible = true;
+            rankScrollUp.visible = true;
+            if(FlashPlay)
+                FlxG.sound.playMusic(Sound.fromFile('assets/music/resultsPERFECT/resultsPERFECT.ogg'));
+            
             var mySound:FlxSound = FlxG.sound.play("assets/sounds/confirmMenu.ogg", 0.4);
 
             alphaPrs = true;
@@ -445,7 +582,7 @@ class ResultState extends MusicBeatState
                         }},
                         (value:Float) -> {
                             shot = Math.floor(value);
-                            scoreUp = Std.int(shot);
+                            _scoreUp = Std.int(shot);
                         });
             fullScore = true;
         }
@@ -455,24 +592,31 @@ class ResultState extends MusicBeatState
 
         if(fullScore && !fullScoreEnd)
         { 
-            var separatedScore:String = Std.string(scoreUp).lpad('0', 10);
+            var separatedScore:String = Std.string(_scoreUp).lpad('0', 10);
             for (i in 0...separatedScore.length)
 		    {
                 // scoreSprArray[i].visible = true;
                 scoreSprArray[i].animation.play('digital' + Std.parseInt(separatedScore.charAt(i)));
             }
-            curScoreTxt.text =  '' + scoreUp;
+            curScoreTxt.text =  '' + _scoreUp;
 
         }
 
+        rankScroll.x += elapsed * 5;
+        rankScrollBack.x -= elapsed * 5;
+        rankScrollUp.y -= elapsed * 50;
         if(alphaPrs && precentNumText.alpha > 0)
         {
             precentNumText.alpha -= 0.01;
             precentTextSpr.alpha -= 0.01;
         }
-        super.update(elapsed);
         if (controls.justPressed('ACCEPT') && !pressEnter)
             {
+                saveScore();
+
+                score.clear();
+                listTrek = [];
+
                 FlxG.sound.playMusic('assets/music/freakyMenu.ogg', 0.3);
 
                 pressEnter = true;
@@ -480,10 +624,10 @@ class ResultState extends MusicBeatState
                 mySound.onComplete = function() 
                         {
                             if (PlayState.songList.length == 0)
-                                MusicBeatState.switchState(new LevelSelect());
+                                SwitshState.switchState(new LevelSelect());
                             else
                             {
-                                MusicBeatState.switchState(new StoryState());
+                                SwitshState.switchState(new StoryState());
                                 PlayState.songList = [];
                             }
                             Score = 0;
@@ -497,6 +641,91 @@ class ResultState extends MusicBeatState
                             priceHits = 0;
                         }
             }
+
+    }
+
+    var startSave:Bool = true;
+    
+    function saveScore() {
+        if(!startSave) return;
+
+        startSave = false;
+
+        // var data:DataSave = _FullData;
+
+        var exists:Bool = false;
+
+        for(key in listTrek)
+        {
+            // trace(key);
+            // trace(score.get(key));
+            var data = score.get(key);
+            // trace(data);
+
+            for(i in _FullData.dataSongs)
+                if(i.name == key)
+                    {     
+                        i.save.push(data);
+                        exists = true;
+                    }
+
+            if(!exists)
+            {                   
+                var songData:DataSongs = {name : key, save: [data]};
+
+                // for (j in 0 ... data.length) songData.save.push(push(data[j]));
+
+                // trace(songData);
+
+                _FullData.dataSongs.push(songData);
+
+                // trace(_FullData.dataSongs);
+            }
+        }
+        trace("endAdd");
+        trace("Start Save!!");
+        var dataSong:String = '';
+        for(i in 0..._FullData.dataSongs.length)
+        {
+            var save:String = '[';
+            for(j in 0 ... _FullData.dataSongs[i].save.length)
+            {
+                save += returnDataSaveString(_FullData.dataSongs[i].save[j]);
+                
+                if(j != _FullData.dataSongs[i].save.length - 1) save += ',';
+            }
+            save += "]";
+            dataSong += 
+            '{
+            "name": "${_FullData.dataSongs[i].name}",
+            "save":'+ save +'
+            }';
+
+            if (i != _FullData.dataSongs.length - 1) dataSong+=",";
+        }
+        var output:String = 
+        '{
+        "dataSongs":
+        [
+        $dataSong
+        ],
+        "dataWeeks":[]
+        }';
+
+        File.saveContent("data.json", output);
+    }
+
+    function returnDataSaveString(data:Array<Dynamic>):String 
+    {
+        trace(data);
+
+        var text:String = "["; 
+
+            text +='${data[0]}, ${data[1]}, ${data[2]}, ${data[3]}, ${data[4]}, ${data[5]}, ${data[6]}, ${data[7]}, ${data[8]}, "${data[9]}", "${data[10]}"';
+            
+            text +="]";
+        
+        return text;
     }
     
 }

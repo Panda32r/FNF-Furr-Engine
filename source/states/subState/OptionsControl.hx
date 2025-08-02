@@ -2,14 +2,13 @@ package states.subState;
 
 import states.OptinsState;
 import backend.KeyNames;
-import flixel.input.keyboard.FlxKey;
 
 class OptionsControl extends MusicBeatState {
-    var grpOptions:FlxTypedGroup<FlxText>;
-    var curSelected:Int = 0;
-    var curBindSlot:Int = 0; // 0 - первый бинд, 1 - второй
-    var changingKey:Bool = false;
-    var sortedActions:Array<String> = [];
+    var grpOptions:FlxTypedGroup<FlxText>   = null;
+    var curSelected:Int                     = 0;
+    var curBindSlot:Int                     = 0; // 0 - первый бинд, 1 - второй
+    var changingKey:Bool                    = false;
+    var sortedActions:Array<String>         = [];
 
     override function create() {
         super.create();
@@ -92,7 +91,8 @@ class OptionsControl extends MusicBeatState {
             }
             
             if (FlxG.keys.justPressed.ESCAPE) {
-                ClientSetings.saveSettings();
+                // ClientSetings.saveSettings();
+                ClientSetings.saveSettingsControls();
                 FlxG.switchState(new OptinsState());
             }
         }
@@ -108,7 +108,7 @@ class OptionsControl extends MusicBeatState {
                 // Возвращаем нормальный вид
                 changingKey = false;
                 updateSelection();
-                ClientSetings.saveSettings();
+                // ClientSetings.saveSettings();
             }
         }
     }

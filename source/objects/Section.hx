@@ -13,16 +13,16 @@ typedef SwagSection =
 
 class Section
 {
-	public var sectionNotes:Array<Dynamic> = [];
+	public var sectionNotes:Array<Dynamic> 	= [];
 
-	public var mustHitSection:Bool = true;
-	public var altAnim:Bool = false;
-	public var gfSection:Bool = false; 
-	public var changeBPM:Bool = false;
+	public var mustHitSection:Bool 			= true;
+	public var altAnim:Bool 				= false;
+	public var gfSection:Bool 				= false; 
+	public var changeBPM:Bool 				= false;
 
 	/**
 	 *	Copies the first section into the second section!
 	 */
-	public static var COPYCAT:Int = 0;
+	public static var COPYCAT:Int 			= 0;
 
 }

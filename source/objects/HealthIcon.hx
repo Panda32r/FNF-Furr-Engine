@@ -2,9 +2,13 @@ package objects;
 // Сделал максимально похожую миханику определения анимаций как в Psych Engine
 // И вроди всё покачто норма работает :')
 class HealthIcon extends FlxSprite{
-    var charector:String = '';
-    var isPlayer:Bool = false;
-    public var iSize:Float;
+    
+    var charector:String                    = '';
+    var isPlayer:Bool                       = false;
+    public var iSize:Float                  = 0;
+    public var autoAdjustOffset:Bool        = true;
+    private var _iconOffsets:Array<Float>   = [0, 0];
+
     public function new(charector:String = 'cat', isPlayer:Bool = false) 
     {
         super();
@@ -13,20 +17,22 @@ class HealthIcon extends FlxSprite{
         scrollFactor.set();
     }
 
-    private var iconOffsets:Array<Float> = [0, 0];
     public function ChangeIcon(charector:String) 
     {
         if(this.charector != charector) {
-            var pathIcon = 'assets/images/icons/icon-' + charector + '.png';
-            if (!(FileSystem.exists(pathIcon)))
-                pathIcon = 'assets/images/icons/icon-cat.png';
+            var pathIcon = 'icons/icon-' + charector ;
+            if (!(FileSystem.exists("assets/images/" + pathIcon + ".png")))
+                pathIcon = 'icons/' + charector;
 
-            var bitmap = BitmapData.fromFile(pathIcon);
-            iSize = Math.round(bitmap.width / bitmap.height);
+            if (!(FileSystem.exists("assets/images/" + pathIcon + ".png")))
+                pathIcon = 'icons/icon-cat';
+
+            var graphic = Img.load(pathIcon);
+            iSize = Math.round(graphic.width / graphic.height);
             // trace(iSize);
-            loadGraphic(bitmap, true, Math.floor(bitmap.width / iSize), Math.floor(bitmap.height));
-            iconOffsets[0] = (width - 150) / iSize;
-            iconOffsets[1] = (height - 150) / iSize;
+            loadGraphic(graphic, true, Math.floor(graphic.width / iSize), Math.floor(graphic.height));
+            _iconOffsets[0] = (width - 150) / iSize;
+            _iconOffsets[1] = (height - 150) / iSize;
             updateHitbox();
 
             animation.add(charector, [for(i in 0...frames.frames.length) i], 0, false, isPlayer);
@@ -38,14 +44,13 @@ class HealthIcon extends FlxSprite{
 
     }
 
-    public var autoAdjustOffset:Bool = true;
 	override function updateHitbox()
 	{
 		super.updateHitbox();
 		if(autoAdjustOffset)
 		{
-			offset.x = iconOffsets[0];
-			offset.y = iconOffsets[1];
+			offset.x = _iconOffsets[0];
+			offset.y = _iconOffsets[1];
 		}
 	}
 }

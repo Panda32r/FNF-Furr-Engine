@@ -4,7 +4,7 @@ function onCreate() {
     trace('Its stage for week 4!!');
 
     var bg = new Sprite(-120, -50);
-    loadImage(bg, 'stages/limo/limoSunset.png');
+    loadImage(bg, 'stages/limo/limoSunset');
     // bg.x -= 120;
     // bg.y -= 50;
     bg.antialiasing = true;

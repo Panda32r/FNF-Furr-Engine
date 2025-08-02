@@ -4,21 +4,20 @@ import states.subState.OptionsControl;
 
 class OptinsState extends MusicBeatState{
 
-    static var selectCategories:Int = 0;
-    public static var isPlayState:Bool = false;
-    public var optinsCategories:Array<String> = ['controls', 'graphics', 'preferences', 'visuals'];
-    // public var optionsPreferences:Array<String> = ['downScroll', 'middleScroll', 'opponentStrums', 'ghostTap', 'healthDown', 'botPlay', 'sickHit', 'goodHit', 'badHit', 'skipLogoEngine'];
-    // public var optionsGraphics:Array<String> = ['FPSmax', 'unlimitFPS', 'antialiasing'];
-    public var options:Array<Dynamic> =[
-        ['controls', 'NoN'],
-        ['graphics', 'FPSmax', 'unlimitFPS', 'antialiasing', 'cacheSpr'],
-        ['preferences', 'downScroll', 'middleScroll', 'opponentStrums', 'ghostTap', 'healthDown', 'botPlay', 'sickHit', 'goodHit', 'badHit', 'skipLogoEngine'],
-        ['visuals', 'glovOponent', 'hidHUD', 'hidCombo', 'combocam', 'stileHPBarType', 'splashType', 'splashVisible', 'splashAlpha', 'visualizerVisible']
-    ];
-    var bg:FlxSprite;
-    public var camCat:FlxCamera;
-    public var camOther:FlxCamera;
-    public var camOpt:FlxCamera;
+    static var selectCategories:Int             = 0;
+    public static var isPlayState:Bool          = false;
+    public var optinsCategories:Array<String>   = ['controls', 'graphics', 'preferences', 'visuals'];
+    public var options:Array<Dynamic>           =[
+                                                    ['controls', 'NoN'],
+                                                    ['graphics', 'FPSmax', 'unlimitFPS', 'antialiasing', 'cacheSpr', 'cacheGpu'],
+                                                    ['preferences', 'downScroll', 'middleScroll', 'opponentStrums', 'ghostTap', 'healthDown', 'botPlay', 'sickHit', 'goodHit', 'badHit', 'skipLogoEngine'],
+                                                    ['visuals', 'glovOponent', 'hidHUD', 'hidCombo', 'combocam', 'stileHPBarType', 'splashType', 'splashVisible', 'splashAlpha', 'visualizerVisible']
+                                                ];
+    var bg:FlxSprite                            = null;
+    public var camCat:FlxCamera                 = null;
+    public var camOther:FlxCamera               = null;
+    public var camOpt:FlxCamera                 = null;
+
     override public function create():Void
     {	
         super.create();
@@ -49,11 +48,13 @@ class OptinsState extends MusicBeatState{
         createMenu();
         updateTextSelect();
     }
-    var selectNow:Bool = false;
-    var defaultCamZoom:Float = 0.6;
-    var lerpSelectedX:Float = 0;
-    var lerpSelectedY:Float = 0;
-    var select:Int = 0;
+
+    var selectNow:Bool                          = false;
+    var defaultCamZoom:Float                    = 0.6;
+    var lerpSelectedX:Float                     = 0;
+    var lerpSelectedY:Float                     = 0;
+    var select:Int                              = 0;
+
     override public function update(elapsed:Float) 
     {
         super.update(elapsed);
@@ -150,11 +151,11 @@ class OptinsState extends MusicBeatState{
                 camOpt.y = 0;
                 FlxG.cameras.add(camOpt);
                 if(!isPlayState)
-                    MusicBeatState.switchState(new MeinMenu());
+                    SwitshState.switchState(new MeinMenu());
                 else
                 {
                     isPlayState = false;
-                    MusicBeatState.switchState(new PlayState());
+                    SwitshState.switchState(new PlayState());
                 }
             }
             select = 0;
@@ -185,7 +186,9 @@ class OptinsState extends MusicBeatState{
                 camOpt.destroy();
         }
     }
-    var menuItemsDop:Array<FlxText> = [];
+
+    var menuItemsDop:Array<FlxText>             = [];
+
     function createMenuDop()
     {
         menuItemsDop = [];
@@ -264,10 +267,13 @@ class OptinsState extends MusicBeatState{
                 menuItemsDop[i].text = 'Visualizer Visible => ' + ClientSetings.data.visualizerVisible ;
             if (dynamicOptions[i+1] == 'cacheSpr')
                 menuItemsDop[i].text = 'Cache Sprite Charectors => ' + ClientSetings.data.cacheSpr ;
+            if (dynamicOptions[i+1] == 'cacheGpu')
+                menuItemsDop[i].text = 'Cache Sprite GPU => ' + ClientSetings.data.cacheGpu ;
         }
     }
 
-    var NewSeting:Bool;
+    var NewSeting:Bool                          = false;
+
     function updateOptins(keyLR:Int = 0, KeyAccept:Bool = false)
     {
         var dynamicOptions:Array<Dynamic> = options[selectCategories];
@@ -373,7 +379,7 @@ class OptinsState extends MusicBeatState{
                     }
                     else
                     {
-                        if (!(ClientSetings.data.combocam >= ClientSetings.data.comboCam.length - 1))
+                        if (!(ClientSetings.data.combocam >= ClientSetings.data.comboCam.length))
                             ClientSetings.data.combocam  += keyLR;
                         else 
                             ClientSetings.data.combocam == 0;
@@ -388,7 +394,7 @@ class OptinsState extends MusicBeatState{
                     }
                     else
                     {
-                        if (!(ClientSetings.data.stileHPBarType >= ClientSetings.data.stileHPBarArray.length - 1))
+                        if (!(ClientSetings.data.stileHPBarType >= ClientSetings.data.stileHPBarArray.length ))
                             ClientSetings.data.stileHPBarType  += keyLR;
                         else 
                             ClientSetings.data.stileHPBarType == 0;
@@ -405,6 +411,35 @@ class OptinsState extends MusicBeatState{
                         NewSeting = !(ClientSetings.data.cacheSpr);
                     ClientSetings.data.cacheSpr = NewSeting ;
                 }
+                if (dynamicOptions[i+1] == 'cacheGpu')
+                {
+                    if(KeyAccept)
+                        NewSeting = !(ClientSetings.data.cacheGpu);
+                    ClientSetings.data.cacheGpu = NewSeting ;
+                }
+                if (dynamicOptions[i+1] == 'splashAlpha')
+                    ClientSetings.data.splashAlpha += keyLR / 10;
+                if (dynamicOptions[i+1] == 'splashVisible')
+                {
+                    if(KeyAccept)
+                        NewSeting = !(ClientSetings.data.splashVisible);
+                    ClientSetings.data.splashVisible = NewSeting ;
+                }
+                if (dynamicOptions[i+1] == 'splashType')
+                    if (keyLR < 0)
+                    {
+                        if (!(ClientSetings.data.splashType <= 0))
+                            ClientSetings.data.splashType  += keyLR;
+                        else 
+                            ClientSetings.data.splashType == ClientSetings.data.splashArray.length - 1;
+                    }
+                    else
+                    {
+                        if (!(ClientSetings.data.splashType >= ClientSetings.data.splashArray.length ))
+                            ClientSetings.data.splashType  += keyLR;
+                        else 
+                            ClientSetings.data.splashType == 0;
+                    }
             }
         }
         ClientSetings.saveSettings();
@@ -412,11 +447,12 @@ class OptinsState extends MusicBeatState{
         updateSeting();
     }
 
-    var _lastVisiblesOptions:Array<Int> = [];
-    var lerpSelectedOptions:Float = 0;
+    var _lastVisiblesOptions:Array<Int>         = [];
+    var lerpSelectedOptions:Float               = 0;
+
     public function updateTextsOptions(elapsed:Float = 0.0)
 	{
-		lerpSelectedOptions = FlxMath.lerp(select, lerpSelectedOptions, Math.exp(-elapsed * 9.6));
+		lerpSelectedOptions = FlxMath.lerp(select, lerpSelectedOptions, Math.exp(-elapsed * 9.6 /(1/60)));
 		for (i in _lastVisiblesOptions)
 		{
 			menuItemsDop[i].visible = menuItemsDop[i].active = false;
@@ -436,7 +472,8 @@ class OptinsState extends MusicBeatState{
 		}
 	}
 
-    var menuItems:Array<FlxText> = [];
+    var menuItems:Array<FlxText>                = [];
+
     function createMenu()
     {
         for (i in 0 ... optinsCategories.length)

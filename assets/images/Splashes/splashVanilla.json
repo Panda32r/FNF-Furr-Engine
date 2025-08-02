@@ -1,0 +1,33 @@
+{
+    "textyra":"noteSplashesVanilla",
+        "left":[
+            {
+                "anim":["pressed", "note impact 1 purple"],
+                "offset":[25, 100],
+                "fps" : 24
+            }
+        ],
+        "down":[
+            {
+                "anim":["pressed", "note impact 1  blue"],
+                "offset":[25, 100],
+                "fps" : 24
+            }
+        ],
+        "up":[
+            {    
+                "anim":["pressed", "note impact 1 green"],
+                "offset":[25, 100],
+                "fps" : 24
+            }
+        ],
+        "right":[
+            {
+                "anim":["pressed", "note impact 1 red"],
+                "offset":[25, 100],
+                "fps" : 24
+            }
+        ],
+    "size" : 1
+
+}

@@ -17,17 +17,16 @@ import flixel.util.FlxColor;
 class FurrCamera extends FlxCamera
 {
     // Настройки плавности слежения
-    public var smoothness:Float = 1.0; // Множитель плавности (1.0 = стандартная плавность)
-    public var dynamicLerp:Bool = true; // Автоматически корректировать lerp под FPS
+    public var smoothness:Float             = 1.0; // Множитель плавности (1.0 = стандартная плавность)
+    public var dynamicLerp:Bool             = true; // Автоматически корректировать lerp под FPS
 
     // Для расчёта движения
-    private var _lastTargetPos:FlxPoint = FlxPoint.get();
-    // private var _scrollTarget:FlxPoint = FlxPoint.get();
-    private var _lerpSpeed:Float = 0.0;
+    private var _lastTargetPos:FlxPoint     = FlxPoint.get();
+    private var _lerpSpeed:Float            = 0.0;
 
     // Эффекты
-    private var _zoomLerp:Float = 0.0;
-    private var _targetZoom:Float = 1.0;
+    private var _zoomLerp:Float             = 0.0;
+    private var _targetZoom:Float           = 1.0;
 
     public function new(x:Int = 0, y:Int = 0, width:Int = 0, height:Int = 0, zoom:Float = 0)
     {
@@ -39,7 +38,7 @@ class FurrCamera extends FlxCamera
     {
         super.update(elapsed); // Обновляем базовые эффекты (вспышки, тряски)
 
-        if (target != null)
+        if (target is FlxSprite)
             updateFollowWithElapsed(elapsed);
 
         updateScroll();
@@ -60,14 +59,13 @@ class FurrCamera extends FlxCamera
         );
 
         // Динамический lerp (корректировка под FPS)
-        _lerpSpeed = dynamicLerp 
-            ? 1 - Math.exp(-elapsed * followLerp * smoothness * (1 / 60))
-            : followLerp;
+        _lerpSpeed = 1 - Math.exp(-elapsed * followLerp * smoothness * (1 / 60));
 
         // Плавный переход к цели
-        scroll.x = FlxMath.lerp(scroll.x, _scrollTarget.x, _lerpSpeed);
-        scroll.y = FlxMath.lerp(scroll.y, _scrollTarget.y, _lerpSpeed);
-
+        // scroll.x = FlxMath.lerp(scroll.x, _scrollTarget.x, _lerpSpeed);
+        // scroll.y = FlxMath.lerp(scroll.y, _scrollTarget.y, _lerpSpeed);
+        scroll.y = (_scrollTarget.y - scroll.y) * _lerpSpeed;
+        scroll.x = (_scrollTarget.x - scroll.x) * _lerpSpeed;
         // Фиксируем последнюю позицию для след. кадра
         _lastTargetPos.set(target.x, target.y);
     }

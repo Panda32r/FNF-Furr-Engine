@@ -34,19 +34,19 @@ typedef StageBGImg = {
 
 class Stagebg extends FlxSprite {
 
-    public var bf_pos:Array<Int>;
-    public var gf_pos:Array<Int>;
-    public var dad_pos:Array<Int>;
-    public var camZoom:Float;
-    public var bf_cam_pos:Array<Int>;
-    public var gf_cam_pos:Array<Int>;
-    public var dad_cam_pos:Array<Int>;
+    public var bf_pos:Array<Int>        = null;
+    public var gf_pos:Array<Int>        = null;
+    public var dad_pos:Array<Int>       = null;
+    public var camZoom:Float            = 0;
+    public var bf_cam_pos:Array<Int>    = null;
+    public var gf_cam_pos:Array<Int>    = null;
+    public var dad_cam_pos:Array<Int>   = null;
 
-    public var spriteGroup:FlxGroup; 
+    public var spriteGroup:FlxGroup     = null; 
 
-    public var bg:StageBGImg;
+    public var bg:StageBGImg            = null;
 
-    public var stages:Stage;
+    public var stages:Stage             = null;
 
     public function new(stage:String = 'stage') {
         super();
@@ -74,10 +74,9 @@ class Stagebg extends FlxSprite {
         {
             bg = stages.BG[i];
             trace(bg.img);
-            var bitmap = BitmapData.fromFile('assets/images/stages/' + bg.img + '.png');
-            var graphic = FlxGraphic.fromBitmapData(bitmap);
-            var spr = new FlxSprite().loadGraphic(graphic);
-            spr.x = bg.pos[0];
+            var bitmap = Img.load('stages/' + bg.img);
+            var spr = new FlxSprite().loadGraphic(bitmap);
+            spr.x = bg.pos[0]; 
             spr.y = bg.pos[1];
             // var spr = new FlxSprite (bg.pos[0], bg.pos[1], 'assets/images/stages/' + bg.img + '.png');
             spr.scrollFactor.set(bg.scrol[0], bg.scrol[1]);

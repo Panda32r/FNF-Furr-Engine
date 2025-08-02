@@ -1,17 +1,18 @@
 package charectors;
 
 
+import data.AnimControl;
 import flixel.animation.FlxAnimation;
 import haxe.Json;
-import lime.utils.Assets;
-import charectors.AnimationCharectors;
 
+import data.AnimationCharectors.FilePersonaga;
+import data.AnimationCharectors.Anim;
 
 
 class BF extends FlxSprite{
     public var animOffsets:Map<String, Array<Dynamic>>;
     public var tex:FlxAtlasFrames;
-    public var imgpng:BitmapData;
+    public var imgpng:FlxGraphic;
     public var imgxml:String;
     public var xPosCam:Float = 0;
     public var yPosCam:Float = 0;
@@ -30,6 +31,8 @@ class BF extends FlxSprite{
     
     public var notFoundPathJson:FlxText;
     public function  new(x:Float,y:Float,charactors:String,flipXCharectors:Bool = false, isDad:Bool = false) {
+        animation = new AnimControl(this);
+
         super(x, y);
         notFoundPathJson = new FlxText(x + 60, y + 450, 200, '');
 		notFoundPathJson.setFormat('assets/fonts/vcr.ttf', 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -65,7 +68,7 @@ class BF extends FlxSprite{
         }
 
         var charactersJson = File.getContent(characterPath).trim();
-        var character:AnimationCharectors.FilePersonaga = Json.parse(charactersJson);
+        var character:FilePersonaga = Json.parse(charactersJson);
 
         not_hold_play_animation = character.not_hold_play_animation;
             if (!changa)
@@ -77,7 +80,7 @@ class BF extends FlxSprite{
             }
             
             trace(character.image);
-            imgpng = BitmapData.fromFile('assets/images/'+ character.image + '.png');
+            imgpng = Img.load(character.image);
             imgxml = File.getContent('assets/images/' + character.image + '.xml');
             xPosCam = character.camera_position[0];
             yPosCam = character.camera_position[1];
@@ -103,7 +106,7 @@ class BF extends FlxSprite{
                 else
                     animation.addByPrefix(characterAnim.anim, characterAnim.name, characterAnim.fps, characterAnim.loop);
                 
-                addOffset(characterAnim.anim, characterAnim.offsets[0], characterAnim.offsets[1]);
+                AnimUtilis.addOffset(animOffsets, characterAnim.anim, characterAnim.offsets[0], characterAnim.offsets[1]);
             }
             
             if (ClientSetings.data.antialiasing)
@@ -149,11 +152,6 @@ class BF extends FlxSprite{
         // Проверяем, существует ли анимация с указанным именем
         var anim:FlxAnimation = animation.getByName(animationName);
         return anim != null;
-    }
-
-    public function addOffset(name:String, x:Float = 0, y:Float = 0)
-    {
-        animOffsets[name] = [x, y];
     }
 
     public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void

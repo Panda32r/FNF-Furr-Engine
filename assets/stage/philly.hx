@@ -11,14 +11,14 @@ function onCreate() {
     trace('Its stage for week 3!!');
 
     var bg = new Sprite(-100, 0);
-    loadImage(bg, 'stages/philly/sky.png');
+    loadImage(bg, 'stages/philly/sky');
     bg.antialiasing = true;
     bg.cameras = [camGame];
     bg.scrollFactor.set(0.1, 0.1);
     add(bg);
 
     city = new Sprite(-10, 0);
-    loadImage(city, 'stages/philly/city.png');
+    loadImage(city, 'stages/philly/city');
     // city.setGraphicSize(Std.int(city.width * 0.85));
     city.cameras = [camGame];
     city.scrollFactor.set(0.3, 0.3);
@@ -27,7 +27,7 @@ function onCreate() {
 	add(city);
 
     phillyLights = new Sprite(city.x, city.y);
-    loadImage(phillyLights, 'stages/philly/window.png');
+    loadImage(phillyLights, 'stages/philly/window');
     phillyLights.cameras = [camGame];
     phillyLights.scrollFactor.set(0.3, 0.3);
     phillyLights.antialiasing = true;
@@ -36,13 +36,13 @@ function onCreate() {
     add(phillyLights);
 
     var streetBehind = new Sprite(-40, 50);
-    loadImage(streetBehind, 'stages/philly/behindTrain.png');
+    loadImage(streetBehind, 'stages/philly/behindTrain');
     streetBehind.antialiasing = true;
     streetBehind.cameras = [camGame];
 	add(streetBehind);
 
     phillyStreet = new Sprite(-40, 50);
-    loadImage(phillyStreet, 'stages/philly/street.png');
+    loadImage(phillyStreet, 'stages/philly/street');
     phillyStreet.antialiasing = true;
     phillyStreet.cameras = [camGame];
 	add(phillyStreet);

@@ -6,17 +6,19 @@ import flixel.addons.transition.FlxTransitionableState;
 
 class MusicBeatState extends FlxState
 {
-    private var lastBeat:Float = 0;
-	private var lastStep:Float = 0;
+    private var lastBeat:Float 	= 0;
+	private var lastStep:Float 	= 0;
 
-	private var totalBeats:Int = 0;
-	private var totalSteps:Int = 0;
+	private var totalBeats:Int 	= 0;
+	private var totalSteps:Int 	= 0;
 
-	private var curStep:Int = 0;
-	private var curBeat:Int = 0;
+	private var curStep:Int 	= 0;
+	private var curBeat:Int 	= 0;
     
-    private var curSection:Int = 0;
-    private var stepsToDo:Int = 0;
+    private var curSection:Int 	= 0;
+    private var stepsToDo:Int 	= 0;
+
+	private var _skipCFT:Bool 	= false;
 
     public var controls(get, never):Controls;
 	private function get_controls()
@@ -27,6 +29,10 @@ class MusicBeatState extends FlxState
     override function create()
     {
         super.create();
+
+		if(!_skipCFT)
+       		openSubState(new CustomFadeTransition(0.5, true));
+
     }
 
     override function update(elapsed:Float)
@@ -141,39 +147,6 @@ class MusicBeatState extends FlxState
 		FlxG.cameras.setDefaultDrawTarget(camera, true);
 		FlxG.cameras.bgColor = FlxColor.BLACK;
 		_furrCameraInitialized = true;
-		//trace('initialized psych camera ' + Sys.cpuTime());
 		return camera;
-	}
-
-    public static function switchState(nextState:FlxState = null) 
-    {
-		if(nextState == null) nextState = FlxG.state;
-		if(nextState == FlxG.state)
-		{
-			resetState();
-			return;
-		}
-
-		if(FlxTransitionableState.skipNextTransIn) FlxG.switchState(nextState);
-		else startTransition(nextState);
-		FlxTransitionableState.skipNextTransIn = false;
-	}
-
-	public static function resetState() 
-    {
-		if(FlxTransitionableState.skipNextTransIn) FlxG.resetState();
-		else startTransition();
-		FlxTransitionableState.skipNextTransIn = false;
-	}
-    public static function startTransition(nextState:FlxState = null)
-	{
-		if(nextState == null)
-			nextState = FlxG.state;
-
-		FlxG.state.openSubState(new CustomFadeTransition(0.5, false));
-		if(nextState == FlxG.state)
-			CustomFadeTransition.finishCallback = function() FlxG.resetState();
-		else
-			CustomFadeTransition.finishCallback = function() FlxG.switchState(nextState);
 	}
 }

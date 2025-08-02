@@ -1,21 +1,11 @@
 package backend;
 
+import data.Event.EventFiles;
 import haxe.Json;
-
-typedef EventFiles = {
-    var event:Array<Events>;
-}
-
-typedef Events = {
-    var step:Int;
-    var eventName:String;
-    var value1:String;
-    var value2:String;
-}
 
 class EventJson {
     public static var pathEvent:String;
-    public static function loadJson(nameFolder:String) {
+    public static function loadFromJson(nameFolder:String) {
         pathEvent = 'assets/data/' + nameFolder.toLowerCase() + '/event.json';
         if (FileSystem.exists(pathEvent))
         {

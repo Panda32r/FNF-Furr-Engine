@@ -1,42 +1,22 @@
 package objects;
 
-import funkin.vis.dsp.SpectralAnalyzer;
+import data.Vis;
+#if funkin.vis
+import funkin.vis.dsp.SpectralAnalyzer.Bar;
+#end
 
-
-class Visualizer extends FlxSpriteGroup
+class Visualizer extends Vis
 {
-    static final NUM_BARS:Int = 53;
-    static final BAR_WIDTH:Int = 20;
-    static final BAR_SPACING:Int = 5;
-    static final MAX_HEIGHT:Float = 150;
+    static final BAR_WIDTH:Int          = 20;
+    static final BAR_SPACING:Int        = 5;
+    static final MAX_HEIGHT:Float       = 150;
 
-    public var bars:Array<FlxSprite> = [];
-
-    public var snd(default, set):FlxSound;
-
-    #if funkin.vis
-	var analyzer:SpectralAnalyzer;
-	#end
-    function set_snd(sound:FlxSound)
-    {
-        if (sound == null || !sound.exists) {
-        snd = null;
-        analyzer = null;
-        return null;
-        }
-        trace(sound);
-        snd = sound;
-        trace(snd);
-        #if funkin.vis
-		initAnalyzer();
-		#end
-        return snd;
-    }
+    public var bars:Array<FlxSprite>    = [];
 
     public function new(x:Float = 0, y:Float = 0, umb_lines:Int = 30)
     {
         super(x, y);
-        // NUM_BARS = umb_lines;
+        // trace('Create new Vis');
         for (i in 0...NUM_BARS)
         {
             var bar = new FlxSprite();
@@ -49,10 +29,10 @@ class Visualizer extends FlxSpriteGroup
         }
     }
 
-    
     #if funkin.vis
-    var levels:Array<Bar>;
-    // var levelMax:Int = 0;
+
+    var levels:Array<Bar>               = null;
+
     override function update(elapsed:Float)
     {
         super.update(elapsed);
@@ -80,55 +60,7 @@ class Visualizer extends FlxSpriteGroup
             );
         }
     }
-    #end
-    #if funkin.vis
-    //Я конечно хуй знает как оно работает, но оно работает 
-	public function initAnalyzer()
-	{
-        @:privateAccess
-        if (snd == null || snd._channel == null) 
-        {
-            trace("Sound or channel is null!");
-            return;
-        }
-        
-        try {
-            @:privateAccess
-            final audioSource = snd._channel.__audioSource;
-            if (audioSource == null) 
-            {
-                trace("AudioSource is null!");
-                return;
-            }
-            trace(audioSource.length);
-            // Исправление для новых версий Lime
-            analyzer = new SpectralAnalyzer(
-                audioSource, // Используем буфер напрямую
-                NUM_BARS,
-                0.1,
-                40
-            );
-            
-            #if desktop
-            analyzer.fftN = 256;
-            #end
-            
-        } catch(e:Dynamic) {
-            trace("Analyzer error: " + e);
-        }
 
-        
-		// @:privateAccess
-        // {
-        //     trace(snd);
-    	
-        //     analyzer = new SpectralAnalyzer(snd._channel.__audioSource, NUM_BARS, 0.1, 40);
-        // }
-		// #if desktop
-		// // On desktop it uses FFT stuff that isn't as optimized as the direct browser stuff we use on HTML5
-		// // So we want to manually change it!
-		// analyzer.fftN = 256;
-		// #end
-	}
-	#end
+    #end
+    
 }

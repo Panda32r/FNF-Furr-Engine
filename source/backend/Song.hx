@@ -41,27 +41,27 @@ typedef SwagSection =
 
 class Song
 {
-	public var song:String;
-	public var notes:Array<SwagSection>;
-	public var events:Array<Dynamic>;
-	public var bpm:Int;
-	public var sections:Int;
-	public var needsVoices:Bool = true;
-	public var speed:Float = 1;
+	public var song:String					= null;
+	public var notes:Array<SwagSection>		= null;
+	public var events:Array<Dynamic>		= null;
+	public var bpm:Int						= 0;
+	public var sections:Int					= 0;
+	public var needsVoices:Bool 			= true;
+	public var speed:Float 					= 1;
 
-	public var player1:String = 'bf';
-	public var player2:String = 'dad';
-	public var player3:String = 'gf';
-	public var stage:String = 'stage';
+	public var player1:String 				= 'bf';
+	public var player2:String 				= 'dad';
+	public var player3:String 				= 'gf';
+	public var stage:String 				= 'stage';
 
-	public var format:String = 'FurrEngine_0.1';
+	public var format:String 				= 'FurrEngine_0.1';
 
-	public var sectionNotes:Array<Dynamic> = [];
+	public var sectionNotes:Array<Dynamic> 	= [];
 
-	public var mustHitSection:Bool = true;
-	public var altAnim:Bool = false;
-	public var gfSection:Bool = false; 
-	public var changeBPM:Bool = false;
+	public var mustHitSection:Bool 			= true;
+	public var altAnim:Bool 				= false;
+	public var gfSection:Bool 				= false; 
+	public var changeBPM:Bool 				= false;
 
 	public function new(song, notes, bpm, sections)
 	{
@@ -92,9 +92,6 @@ class Song
 		{
 			if(swagShit.notes[i].changeBPM != true)
 				swagShit.notes[i].changeBPM = false;
-			trace(swagShit.notes[i].changeBPM);
-			// trace('LOADED FROM JSON: ' + songData.notes[i].sectionNotes);
-			// // songData.notes[i].sectionNotes = songData.notes[i].sectionNotes
 		}
 		// trace(swagShit.notes[0]);
 

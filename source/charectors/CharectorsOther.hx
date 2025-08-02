@@ -1,35 +1,40 @@
 package charectors;
 
 
+import data.AnimControl;
 import flixel.animation.FlxAnimation;
 import haxe.Json;
-import openfl.display.BitmapData;
 
-import charectors.AnimationCharectors;
+import data.AnimationCharectors.FilePersonaga;
+import data.AnimationCharectors.Anim;
+
 
 class CharectorsOther extends FlxSprite{
-    public var animOffsets:Map<String, Array<Dynamic>>;
-    public var tex:FlxAtlasFrames;
-    public var imgpng:BitmapData;
-    public var imgxml:String;
-    public var xPosCam:Float = 0;
-    public var yPosCam:Float = 0;
-    public var xPos:Int = 0;
-    public var yPos:Int = 0;
-    public var stunned:Bool = false;
-    public var healthbar_colors:Array<Int>;
-    public var not_hold_play_animation:Bool = false;
-    public var states:String;
-    private var changa:Bool = false;
-    private var x_changa:Int;
-    private var y_changa:Int;
-    private var daDad:Bool = false;
-    public var name:String;
+    public var animOffsets:Map<String, Array<Dynamic>>  = null;
+    public var tex:FlxAtlasFrames                       = null;
+    public var imgpng:FlxGraphic                        = null;
+    public var imgxml:String                            = null;
+    public var xPosCam:Float                            = 0;
+    public var yPosCam:Float                            = 0;
+    public var xPos:Int                                 = 0;
+    public var yPos:Int                                 = 0;
+    public var stunned:Bool                             = false;
+    public var healthbar_colors:Array<Int>              = null;
+    public var not_hold_play_animation:Bool             = false;
+    public var states:String                            = null;
+    private var changa:Bool                             = false;
+    private var x_changa:Int                            = 0;
+    private var y_changa:Int                            = 0;
+    private var daDad:Bool                              = false;
+    public var name:String                              = null;
 
     
     public var notFoundPathJson:FlxText;
     public function  new(x:Float,y:Float,charactors:String,states:String,flipXCharectors:Bool = false, isDad:Bool = false) {
         super(x, y);
+
+        animation = new AnimControl(this);
+        
         notFoundPathJson = new FlxText(x + 60, y + 450, 200, '');
 		notFoundPathJson.setFormat('assets/fonts/vcr.ttf', 18, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         daDad = isDad;
@@ -38,11 +43,11 @@ class CharectorsOther extends FlxSprite{
         
     }
 
-    public var notFound = false;
+    public var notFound                                 = false;
     public function personagaChange(charactors:String, flipXCharectors:Bool = false)  {
         name = charactors;
         var characterPath = 'assets/images/' + states + '/'+ charactors + '.json';
-        trace(characterPath);
+        // trace(characterPath);
         if (!(FileSystem.exists(characterPath)))
         {
             notFoundPathJson.text = 'Not Found characters/' + charactors;
@@ -65,7 +70,7 @@ class CharectorsOther extends FlxSprite{
         }
 
         var charactersJson = File.getContent(characterPath).trim();
-        var character:AnimationCharectors.FilePersonaga = Json.parse(charactersJson);
+        var character:FilePersonaga = Json.parse(charactersJson);
 
         not_hold_play_animation = character.not_hold_play_animation;
             if (!changa)
@@ -76,15 +81,15 @@ class CharectorsOther extends FlxSprite{
                 y -= y_changa;
             }
             
-            trace(character.image);
+            // trace(character.image);
             if(!notFound)
             {
-                imgpng = BitmapData.fromFile('assets/images/'+ states + '/'+ character.image + '.png');
+                imgpng = Img.load('$states/${character.image}');
                 imgxml = File.getContent('assets/images/'+ states + '/' + character.image + '.xml');
             }
             else
             {
-                imgpng = BitmapData.fromFile('assets/images/'+ character.image + '.png');
+                imgpng = Img.load(character.image);
                 imgxml = File.getContent('assets/images/' + character.image + '.xml');
             }
             if(states != "storymenu/props")
@@ -111,7 +116,7 @@ class CharectorsOther extends FlxSprite{
                 else
                     animation.addByPrefix(characterAnim.anim, characterAnim.name, characterAnim.fps, characterAnim.loop);
                 
-                addOffset(characterAnim.anim, characterAnim.offsets[0], characterAnim.offsets[1]);
+                AnimUtilis.addOffset(animOffsets, characterAnim.anim, characterAnim.offsets[0], characterAnim.offsets[1]);
             }
             if (ClientSetings.data.antialiasing)
                 antialiasing = !(character.no_antialiasing);
@@ -142,6 +147,8 @@ class CharectorsOther extends FlxSprite{
                 alpha = 1;
                 color = FlxColor.fromString('#FFFFFF');
             }
+
+            
     }
 
 
@@ -150,11 +157,6 @@ class CharectorsOther extends FlxSprite{
         // Проверяем, существует ли анимация с указанным именем
         var anim:FlxAnimation = animation.getByName(animationName);
         return anim != null;
-    }
-
-    public function addOffset(name:String, x:Float = 0, y:Float = 0)
-    {
-            animOffsets[name] = [x, y];
     }
 
     public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void

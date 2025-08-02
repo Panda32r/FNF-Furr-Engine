@@ -1,6 +1,7 @@
 package states;
 
 
+import objects.ABot;
 import objects.Visualizer;
 import backend.RandomSongForDemo;
 import charectors.CharectorsOther;
@@ -12,28 +13,37 @@ import states.LevelSelect;
 
 class TitleState extends MusicBeatState
 {
-    public var rSong:RandomSongForDemo = new RandomSongForDemo();
+    public var rSong:RandomSongForDemo  = new RandomSongForDemo();
 
-    public var gf:CharectorsOther;
+    public var gf:CharectorsOther       = null;
 
-    public var logo:FlxSprite;
-    public var danceGF:Bool = false;
-    public var song:FlxSound;
+    public var logo:FlxSprite           = null;
+    public var danceGF:Bool             = false;
+    public var song:FlxSound            = null;
 
-    public var camGame:FlxCamera;
-    public var camHUD:FlxCamera;
+    public var camGame:FlxCamera        = null;
+    public var camHUD:FlxCamera         = null;
 
-    public var bg:FlxSprite;
+    public var bg:FlxSprite             = null;
 
-    public var whileColor:FlxSprite;
+    public var whileColor:FlxSprite     = null;
 
-    public var titleEnter:FlxSprite;
-    var pressEnter:Bool = false;
+    public var titleEnter:FlxSprite     = null;
+    var pressEnter:Bool                 = false;
 
-    var visualizer:Visualizer;
+    var visualizer:Visualizer           = null;
+
+    public static var verEngine:String = "0.1.5.02-08";
+    public static var verGame:String = "0.2.8";
+
     override public function create():Void 
     {
+        _skipCFT = true;
+
         super.create();
+
+        persistentUpdate = true;
+		persistentDraw = true;
 
         // Conductor.songPosition = 0;
         camGame = new FlxCamera();
@@ -103,8 +113,17 @@ class TitleState extends MusicBeatState
             FlxG.sound.playMusic('assets/music/freakyMenu.ogg', 1);
             // song.play();
         }
+
         if (ClientSetings.data.visualizerVisible)
             visualizer.snd = FlxG.sound.music;
+
+        // var ABot = new ABot(400, 200);
+        // ABot.cameras = [camGame];
+        // ABot.set_pos();
+        // add(ABot);
+
+        // ABot.snd = FlxG.sound.music;
+
 
         if (FlxG.sound.music != null) 
             Conductor.songPosition = FlxG.sound.music.time;
@@ -115,11 +134,10 @@ class TitleState extends MusicBeatState
 
         gf.playAnim('danceRight');
 
-        SavePosSongNotGamplay.loadPos(curStep, curBeat, totalSteps, totalBeats, lastStep, lastBeat);
 
     }
 
-    var animEnter:Bool = false;
+    var animEnter:Bool                  = false;
     override public function update(elapsed:Float) 
     {
         super.update(elapsed);
@@ -136,8 +154,7 @@ class TitleState extends MusicBeatState
                 titleEnter.animation.play('freeze');
             var mySound:FlxSound = FlxG.sound.play("assets/sounds/confirmMenu.ogg", 0.4);
             mySound.onComplete = function() 
-                    MusicBeatState.switchState(new MeinMenu());
-            SavePosSongNotGamplay.savePos(curStep, curBeat, totalSteps, totalBeats, lastStep, lastBeat);
+                    SwitshState.switchState(new MeinMenu());
         }
         if (FlxG.sound.music != null)
         {    // Conductor.songPosition = song.time;
@@ -149,25 +166,25 @@ class TitleState extends MusicBeatState
     } 
 
     override function beatHit() 
-        {
-            super.beatHit();
-                if (gf.animation.curAnim.finished || gf.animation.name == 'danceLeft' || gf.animation.name == 'danceRight')	
-                {
-                    if (!danceGF)
-                    {gf.playAnim('danceLeft'); danceGF = true;logo.animation.play('static');}
-                    else
-                    {gf.playAnim('danceRight'); danceGF = false;logo.animation.play('static');}
-                    // trace('Dance');
-                }
-        }
+    {
+        super.beatHit();
+            if (gf.animation.curAnim.finished || gf.animation.name == 'danceLeft' || gf.animation.name == 'danceRight')	
+            {
+                if (!danceGF)
+                {gf.playAnim('danceLeft'); danceGF = true;logo.animation.play('static');}
+                else
+                {gf.playAnim('danceRight'); danceGF = false;logo.animation.play('static');}
+                // trace('Dance');
+            }
+    }
 
     function SongEnd() 
 	{
         FlxG.sound.playMusic('assets/music/freakyMenu.ogg', 0);
         PlayState.SONG = Song.loadFromJson(rSong.randSong,rSong.randSong);
-        PlayState.EVENT = EventJson.loadJson(rSong.randSong);
+        PlayState.EVENT = EventJson.loadFromJson(rSong.randSong);
         PlayState.songName = rSong.randSong;
         PlayState.demo = true;
-        MusicBeatState.switchState(new PlayState()); // Переход в игру
+        SwitshState.switchState(new PlayState()); // Переход в игру
 	}
 }

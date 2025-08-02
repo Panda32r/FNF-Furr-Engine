@@ -1,4 +1,5 @@
 package;
+import openfl.events.Event;
 import lime.app.Application;
 import states.LogoState;
 #if !neko
@@ -8,8 +9,6 @@ import debug.FPSCounter;
 #end
 import flixel.FlxGame;
 import openfl.display.Sprite;
-import states.PlayState;
-import states.TitleState;
 
 import openfl.Lib;
 import flash.events.UncaughtErrorEvent;
@@ -21,7 +20,7 @@ class Main extends Sprite
 	public static var fpsVar:FPSCounter;
 	#end
 	#end
-	var game = {
+	var gameSettings = {
 		width: 1280, // WINDOW width
 		height: 720, // WINDOW height
 		zoom: -1.0, // game state bounds
@@ -41,45 +40,51 @@ class Main extends Sprite
 	};
 
 
+	public static function main():Void
+	{
+		Lib.current.addChild(new Main());
+	}
+
 	public function new()
 	{
 		super();
-		addChild(new FlxGame(game.width, game.height, game.initialState,  game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
-		#if !neko
-		#if windows
-		fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
-		addChild(fpsVar);
-		#end
-		#end
-		Controls.instance = new Controls();
-		stage.color = null;
 
-		// FlxG.game.focusLostFramerate = 60;
-		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtError);
-
+		if(stage != null)
+			init();
+		else
+			addEventListener(Event.ADDED_TO_STAGE, init);
 	}
 
-	private function onUncaughtError(e:UncaughtErrorEvent):Void {
-        #if !neko
-        e.preventDefault(); // Предотвращаем стандартное поведение (например, краш)
-        
-		var errorMsg = "CRASH: " + Std.string(e);
+
+	function init(?event:Event):Void
+  	{
+		if (hasEventListener(Event.ADDED_TO_STAGE))
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+
+		setupGame();
+  	}
+
+	function setupGame():Void
+	{
 		
 
-        var errorMsg:String = "Произошла критическая ошибка:\n";
-        
-        if (e != null) {
-            errorMsg += Std.string(e) + "\n\nStack Trace:\n" + haxe.CallStack.toString(haxe.CallStack.exceptionStack());
-        } else {
-            errorMsg += "Неизвестная ошибка.";
-        }
+		var game:FlxGame = new FlxGame(gameSettings.width, gameSettings.height, gameSettings.initialState,  gameSettings.framerate, gameSettings.framerate, gameSettings.skipSplash, gameSettings.startFullscreen);
+		addChild(game);
 
-        sys.io.File.saveContent("crash_log.txt", errorMsg); // Запись в файл
-
-        // Выводим окно с ошибкой
-        Application.current.window.alert(errorMsg, "Error!");
-		Sys.exit(1);
+		#if !neko
+			#if windows
+				fpsVar = new FPSCounter(10, 3, 0xFFFFFF);
+				addChild(fpsVar);
+			#end
 		#end
-    }
+
+		FlxG.fixedTimestep = false;
+		FlxG.game.focusLostFramerate = 60;
+		
+		Controls.instance = new Controls();
+
+		// FlxG.game.focusLostFramerate = 60;
+		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, Error.onError);
+	}
 }
 

@@ -4,20 +4,20 @@ import flixel.util.FlxTimer;
 
 class MeinMenu extends MusicBeatState
 {
-    public var camGame:FlxCamera;
-	public var camHUD:FlxCamera;
+    public var camGame:FlxCamera        = null;
+	public var camHUD:FlxCamera         = null;
 
-    var credits:FlxSprite;
-    var freePlay:FlxSprite;
-    var options:FlxSprite;
-    var storyMode:FlxSprite;
+    var credits:FlxSprite               = null;
+    var freePlay:FlxSprite              = null;
+    var options:FlxSprite               = null;
+    var storyMode:FlxSprite             = null;
 
-    var menu:Array<String> = ['storymode', 'freeplay', 'credits', 'options'];
-    var menuItems:Array<FlxSprite> = [];
-    public static var select:Int = 0;
-    var lerpSelected:Float = 0;
+    var menu:Array<String>              = ['storymode', 'freeplay', 'options'];
+    var menuItems:Array<FlxSprite>      = [];
+    public static var select:Int        = 0;
+    var lerpSelected:Float              = 0;
     override public function create():Void
-    {
+    {        
         super.create();
         camGame = new FlxCamera();
         camGame.bgColor = FlxColor.fromString('#FFD863');
@@ -35,9 +35,7 @@ class MeinMenu extends MusicBeatState
         if (FlxG.sound.music != null) 
             Conductor.songPosition = FlxG.sound.music.time;
 
-        FlxG.sound.music.onComplete = SongEnd;
 
-        SavePosSongNotGamplay.loadPos(curStep, curBeat, totalSteps, totalBeats, lastStep, lastBeat);
         
         var bg = new FlxSprite();
         bg.loadGraphic("assets/images/menuBG.png"); // Загружаем изображение
@@ -47,97 +45,96 @@ class MeinMenu extends MusicBeatState
         add(bg);
         bg.cameras = [camGame];
 
+        var textVerEngine:FlxText = new FlxText (0, 0, FlxG.width);
+        textVerEngine.text = 'FurrEngine ${TitleState.verEngine} - beta 12';
+
+        textVerEngine.setFormat('assets/fonts/vcr.ttf', 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		textVerEngine.scrollFactor.set();
+		textVerEngine.borderSize = 1.25;
+        textVerEngine.cameras = [camHUD];
+
+        textVerEngine.y = FlxG.height - textVerEngine.height;
+
+        add(textVerEngine);
+
         CreateMenu();
         onSelectMenu();
     }
 
+    var blocControl:Bool                = false;
     override public function update(elapsed:Float) 
     {
         if (FlxG.sound.music != null) 
             Conductor.songPosition = FlxG.sound.music.time;
 
         super.update(elapsed);
-        if(controls.justPressed('ui_up'))
+        if(!blocControl)
         {
-            if (!(select <= 0))
-                select--; 
-            else
-                select = menu.length - 1;
-            onSelectMenu();
-            // trace(select);
-        }
+            if(controls.justPressed('ui_up'))
+            {
+                if (!(select <= 0))
+                    select--; 
+                else
+                    select = menu.length - 1;
+                onSelectMenu();
+                // trace(select);
+            }
 
-        if(controls.justPressed('ui_down'))
-        {
-            if (!(select >= menu.length - 1))
-               select++;
-            else
-                select = 0;
-            onSelectMenu();
-            // trace(select);
-        }
-        
-        if (controls.justPressed('ACCEPT')) 
-        {
-            if (menu[select] == 'freeplay')
-            {   
-            var mySound:FlxSound = FlxG.sound.play("assets/sounds/confirmMenu.ogg", 0.4);
-            mySound.onComplete = function() 
-                { 
-                    SavePosSongNotGamplay.savePos(curStep, curBeat, totalSteps, totalBeats, lastStep, lastBeat);
-                    FlxG.switchState(new LevelSelect());
+            if(controls.justPressed('ui_down'))
+            {
+                if (!(select >= menu.length - 1))
+                select++;
+                else
+                    select = 0;
+                onSelectMenu();
+                // trace(select);
+            }
+            
+            if (controls.justPressed('ACCEPT')) 
+            {
+                blocControl = true;
+                
+                if (menu[select] == 'freeplay')
+                {   
+                var mySound:FlxSound = FlxG.sound.play("assets/sounds/confirmMenu.ogg", 0.4);
+                mySound.onComplete = function() 
+                    { 
+                        FlxG.switchState(new LevelSelect());
+                    }
                 }
-            }
-            if (menu[select] == 'storymode')
-            {   
-            var mySound:FlxSound = FlxG.sound.play("assets/sounds/confirmMenu.ogg", 0.4);
-            mySound.onComplete = function() 
-                { 
+                if (menu[select] == 'storymode')
+                {   
+                var mySound:FlxSound = FlxG.sound.play("assets/sounds/confirmMenu.ogg", 0.4);
+                mySound.onComplete = function() 
+                    { 
 
-                    SavePosSongNotGamplay.savePos(curStep, curBeat, totalSteps, totalBeats, lastStep, lastBeat);
-                    FlxG.switchState(new StoryState());
+                        FlxG.switchState(new StoryState());
+                    }
                 }
+                if (menu[select] == 'options')
+                {   
+                var mySound:FlxSound = FlxG.sound.play("assets/sounds/confirmMenu.ogg", 0.4);
+                mySound.onComplete = function() 
+                    SwitshState.switchState(new OptinsState());
+                }
+                new FlxTimer().start(0.6, function(timer:FlxTimer) {
+                    trace("late 0.8 s!");
+                    menuEnd = true;
+                });
             }
-            if (menu[select] == 'options')
-            {   
-            var mySound:FlxSound = FlxG.sound.play("assets/sounds/confirmMenu.ogg", 0.4);
-            mySound.onComplete = function() 
-                SavePosSongNotGamplay.savePos(curStep, curBeat, totalSteps, totalBeats, lastStep, lastBeat);
-                MusicBeatState.switchState(new OptinsState());
-            }
-            new FlxTimer().start(0.6, function(timer:FlxTimer) {
-                trace("late 0.8 s!");
-                menuEnd = true;
-            });
-        }
+            if (controls.justPressed('BACK'))
+            {
+                SwitshState.switchState(new TitleState());
 
+            }
+        }
         if (!(menuEnd))
             onUpdateMenu(elapsed);
         else
             onCloseMenu(elapsed);
-
-        if (controls.justPressed('BACK'))
-        {
-            MusicBeatState.switchState(new TitleState());
-            SavePosSongNotGamplay.savePos(curStep, curBeat, totalSteps, totalBeats, lastStep, lastBeat);
-
-        }
     }
 
-    var thisStepEnd:Int = 0;
-
-    function SongEnd()
-    {
-        trace('Тут мы будем пустыми чтоб по ржать)');
-        curStep = 0;
-        curBeat = 0;
-
-        totalSteps = 0;
-        totalBeats = 0;
-
-        lastStep = 0;
-        lastBeat = 0;
-    }
+    var thisStepEnd:Int                 = 0;
 
     function CreateMenu()
     {
@@ -172,10 +169,10 @@ class MeinMenu extends MusicBeatState
             menuItems[i].animation.play((select == i) ? 'select' : 'idle');
     }
 
-    var menuEnd:Bool = false;
+    var menuEnd:Bool                    = false;
     function onUpdateMenu(elapsed:Float = 0)
     {
-        lerpSelected = FlxMath.lerp(select, lerpSelected, Math.exp(-elapsed * 9 ));
+        lerpSelected = FlxMath.lerp(select, lerpSelected, Math.exp(-elapsed * 9.6 /(1/60) ));
         for (i in 0...menuItems.length) 
         {
             // menuItems[i].y = ((i - lerpSelected ) * 120) + 50;

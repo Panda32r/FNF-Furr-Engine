@@ -6,7 +6,7 @@ import flxanimate.frames.FlxAnimateFrames;
 
 class CharectorsWinState extends FlxAnimate{
     
-    public var imgpng:BitmapData;
+    public var imgpng:FlxGraphic;
     public var imgAnim:String;
     public var imgjson:String;
     
@@ -14,16 +14,18 @@ class CharectorsWinState extends FlxAnimate{
 
     public function new(x:Float, y:Float, ch:String, res:String, ?folderch:String) {
         super(x, y);
-
+        
         if(folderch == null)
         {
-            imgpng = BitmapData.fromFile('assets/images/ResultState/results-'+ ch +'/results'+ res +'/spritemap1.png');
+            // imgpng = BitmapData.fromFile('assets/images/ResultState/results-'+ ch +'/results'+ res +'/spritemap1.png');
+            imgpng = Img.load('ResultState/results-'+ ch +'/results'+ res +'/spritemap1');
             imgjson = File.getContent('assets/images/ResultState/results-'+ ch +'/results'+ res +'/spritemap1.json');
             imgAnim = File.getContent('assets/images/ResultState/results-'+ ch +'/results'+ res +'/Animation.json');
         }
         else
         {
-            imgpng = BitmapData.fromFile('assets/images/ResultState/results-'+ ch +'/results'+ res +'/'+folderch+'/spritemap1.png');
+            // imgpng = BitmapData.fromFile('assets/images/ResultState/results-'+ ch +'/results'+ res +'/'+folderch+'/spritemap1.png');
+            imgpng = Img.load('ResultState/results-'+ ch +'/results'+ res +'/'+folderch+'/spritemap1');
             imgjson = File.getContent('assets/images/ResultState/results-'+ ch +'/results'+ res +'/'+folderch+'/spritemap1.json');
             imgAnim = File.getContent('assets/images/ResultState/results-'+ ch +'/results'+ res +'/'+folderch+'/Animation.json');
         }
